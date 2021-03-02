@@ -1,0 +1,10 @@
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="shinnil.godot.plugin.android.godotyodo1mas">
+
+    <uses-permission android:name="android.permission.INTERNET" />
+    <application>
+        <meta-data
+            android:name="org.godotengine.plugin.v1.GodotYodo1Mas"
+            android:value="shinnil.godot.plugin.android.godotyodo1mas.GodotYodo1Mas" />
+    </application>
+</manifest>
