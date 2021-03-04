@@ -36,7 +36,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     compileOnly project(':godot-lib.release')
-    implementation 'com.yodo1.mas:standard:4.0.1.0'
+    implementation 'com.yodo1.mas:standard:4.0.1.1'
 
     implementation 'androidx.appcompat:appcompat:1.1.0'
 

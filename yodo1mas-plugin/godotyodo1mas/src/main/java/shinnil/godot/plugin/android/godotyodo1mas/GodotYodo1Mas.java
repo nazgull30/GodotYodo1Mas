@@ -39,13 +39,14 @@ public class GodotYodo1Mas extends GodotPlugin {
 
     public GodotYodo1Mas(Godot godot) {
         super(godot);
-        activity = godot;
     }
 
     // create and add a new layout to Godot
     @Override
     public View onMainCreate(Activity activity) {
         layout = new FrameLayout(activity);
+        this.activity = activity;
+        Log.w("godot", "GodotYodo1Mas -> onMainCreate,  activity: " + activity.hashCode());
         return layout;
     }
 
@@ -60,23 +61,18 @@ public class GodotYodo1Mas extends GodotPlugin {
     public List<String> getPluginMethods() {
         return Arrays.asList(
                 "init",
-                "initWithContentRating",
                 // banner
-                "loadBanner", "showBanner", "hideBanner", "getBannerWidth", "getBannerHeight", "resize", "move",
+//                "loadBanner", "showBanner", "hideBanner", "getBannerWidth", "getBannerHeight", "resize", "move",
                 // Interstitial
-                "loadInterstitial", "showInterstitial",
+                "showInterstitial",
                 // Rewarded video
-                "loadRewardedVideo", "showRewardedVideo");
+                "showRewardedVideo");
     }
 
     @NonNull
     @Override
     public Set<SignalInfo> getPluginSignals() {
         Set<SignalInfo> signals = new ArraySet<>();
-
-        signals.add(new SignalInfo("on_admob_ad_loaded"));
-        signals.add(new SignalInfo("on_admob_banner_failed_to_load", Integer.class));
-
 
         signals.add(new SignalInfo("on_interstitial_loaded"));
         signals.add(new SignalInfo("on_interstitial_failed_to_load", Integer.class));
@@ -103,8 +99,7 @@ public class GodotYodo1Mas extends GodotPlugin {
      *
      * @param appId  yodo1 application id
      */
-    public void init(String appId) {
-
+    public void init(final String appId) {
         Yodo1Mas.getInstance().init(activity, appId, new Yodo1Mas.InitListener() {
             @Override
             public void onMasInitSuccessful() {

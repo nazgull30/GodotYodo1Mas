@@ -4,18 +4,12 @@ onready var yodo1mas = $Yodo1Mas
 onready var debug_out = $CanvasLayer/DebugOut
 
 func _ready():
-	loadAds()
 # warning-ignore:return_value_discarded
 	get_tree().connect("screen_resized", self, "_on_resize")
 
-func loadAds() -> void:
-	yodo1mas.load_banner()
-	yodo1mas.load_interstitial()
-	yodo1mas.load_rewarded_video()
-
 # buttons callbacks
-func _on_BtnReload_pressed() -> void:
-	loadAds()
+func _on_BtnInit_pressed() -> void:
+	yodo1mas.init()
 	
 func _on_BtnBanner_toggled(button_pressed):
 		if button_pressed: yodo1mas.show_banner()

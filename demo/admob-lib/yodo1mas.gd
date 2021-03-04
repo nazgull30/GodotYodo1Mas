@@ -17,7 +17,7 @@ signal rewarded_video_opened
 signal rewarded_video_started
 
 # properties
-export var is_real:bool setget is_real_set
+export var app_id:String
 export var banner_on_top:bool = true
 export(String, "ADAPTIVE_BANNER", "SMART_BANNER", "BANNER", "LARGE_BANNER", "MEDIUM_RECTANGLE", "FULL_BANNER", "LEADERBOARD") var banner_size = "ADAPTIVE_BANNER"
 export var banner_id:String
@@ -32,27 +32,6 @@ var _yodo1mas_singleton = null
 var _is_interstitial_loaded:bool = false
 var _is_rewarded_video_loaded:bool = false
 
-
-func _enter_tree():
-	if not init():
-		print("Yodo1Mas Java Singleton not found. This plugin will only work on Android")
-
-# setters
-func is_real_set(new_val) -> void:
-	is_real = new_val
-# warning-ignore:return_value_discarded
-	init()
-	
-func child_directed_set(new_val) -> void:
-	child_directed = new_val
-# warning-ignore:return_value_discarded
-	init()
-
-func is_personalized_set(new_val) -> void:
-	is_personalized = new_val
-# warning-ignore:return_value_discarded
-	init()
-
 func max_ad_content_rate_set(new_val) -> void:
 	if new_val != "G" and new_val != "PG" \
 		and new_val != "T" and new_val != "MA":
@@ -63,26 +42,20 @@ func max_ad_content_rate_set(new_val) -> void:
 
 # initialization
 func init() -> bool:
+	print("Initialize yodo sdk")
 	if(Engine.has_singleton("GodotYodo1Mas")):
 		_yodo1mas_singleton = Engine.get_singleton("GodotYodo1Mas")
 
 		# check if one signal is already connected
-		if not _yodo1mas_singleton.is_connected("on_admob_ad_loaded", self, "_on_admob_ad_loaded"):
+		if not _yodo1mas_singleton.is_connected("on_interstitial_loaded", self, "on_interstitial_loaded"):
 			connect_signals()
 
-		_yodo1mas_singleton.initWithContentRating(
-			is_real,
-			child_directed,
-			is_personalized,
-			max_ad_content_rate
-		)
+		_yodo1mas_singleton.init(app_id)
 		return true
 	return false
 
 # connect the AdMob Java signals
 func connect_signals() -> void:
-	_yodo1mas_singleton.connect("on_admob_ad_loaded", self, "_on_admob_ad_loaded")
-	_yodo1mas_singleton.connect("on_admob_banner_failed_to_load", self, "_on_admob_banner_failed_to_load")
 	_yodo1mas_singleton.connect("on_interstitial_failed_to_load", self, "_on_interstitial_failed_to_load")
 	_yodo1mas_singleton.connect("on_interstitial_loaded", self, "_on_interstitial_loaded")
 	_yodo1mas_singleton.connect("on_interstitial_close", self, "_on_interstitial_close")
