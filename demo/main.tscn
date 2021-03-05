@@ -50,7 +50,6 @@ margin_left = -75.0
 margin_top = -166.077
 margin_right = 75.0
 margin_bottom = -91.0766
-disabled = true
 text = "Show Interstitial"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -80,8 +79,6 @@ margin_left = -75.0
 margin_top = -65.6294
 margin_right = 75.0
 margin_bottom = 9.37061
-disabled = true
-toggle_mode = true
 text = "Show/Hide Banner"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -112,7 +109,6 @@ margin_left = -75.0
 margin_top = 31.0654
 margin_right = 76.0
 margin_bottom = 106.065
-disabled = true
 text = "Show Rewarded Video"
 __meta__ = {
 "_edit_use_anchors_": false
@@ -135,14 +131,11 @@ is_personalized = false
 [connection signal="toggled" from="CanvasLayer/BtnBannerMove" to="." method="_on_BtnBannerMove_toggled"]
 [connection signal="pressed" from="CanvasLayer/BtnRewardedVideo" to="." method="_on_BtnRewardedVideo_pressed"]
 [connection signal="banner_failed_to_load" from="Yodo1Mas" to="." method="_on_AdMob_banner_failed_to_load"]
-[connection signal="banner_loaded" from="Yodo1Mas" to="." method="_on_AdMob_banner_loaded"]
 [connection signal="interstitial_closed" from="Yodo1Mas" to="." method="_on_AdMob_interstitial_closed"]
 [connection signal="interstitial_failed_to_load" from="Yodo1Mas" to="." method="_on_AdMob_interstitial_failed_to_load"]
-[connection signal="interstitial_loaded" from="Yodo1Mas" to="." method="_on_AdMob_interstitial_loaded"]
 [connection signal="rewarded" from="Yodo1Mas" to="." method="_on_AdMob_rewarded"]
 [connection signal="rewarded_video_closed" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_closed"]
 [connection signal="rewarded_video_failed_to_load" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_failed_to_load"]
 [connection signal="rewarded_video_left_application" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_left_application"]
-[connection signal="rewarded_video_loaded" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_loaded"]
 [connection signal="rewarded_video_opened" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_opened"]
 [connection signal="rewarded_video_started" from="Yodo1Mas" to="." method="_on_AdMob_rewarded_video_started"]

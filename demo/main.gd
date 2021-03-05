@@ -53,6 +53,9 @@ func _on_AdMob_interstitial_loaded():
 	$"CanvasLayer/BtnInterstitial".disabled = false
 	debug_out.text = debug_out.text + "Interstitial loaded\n"
 
+func _on_AdMob_interstitial_open():
+	debug_out.text = debug_out.text + "Interstitial open\n"
+	
 func _on_AdMob_interstitial_closed():
 	debug_out.text = debug_out.text + "Interstitial closed\n"
 	$"CanvasLayer/BtnInterstitial".disabled = true
