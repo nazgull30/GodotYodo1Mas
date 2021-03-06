@@ -53,12 +53,16 @@ func init() -> bool:
 
 # connect the AdMob Java signals
 func connect_signals() -> void:
-	_yodo1mas_singleton.connect("on_interstitial_open", self, "_on_interstitial_open")
-	_yodo1mas_singleton.connect("on_interstitial_close", self, "_on_interstitial_close")
+	_yodo1mas_singleton.connect("on_interstitial_not_loaded", self, "_on_interstitial_not_loaded")
+	_yodo1mas_singleton.connect("on_interstitial_opened", self, "_on_interstitial_opened")
+	_yodo1mas_singleton.connect("on_interstitial_closed", self, "_on_interstitial_closed")
 	_yodo1mas_singleton.connect("on_interstitial_error", self, "_on_interstitial_error")
-#	_yodo1mas_singleton.connect("on_rewarded_video_ad_loaded", self, "_on_rewarded_video_ad_loaded")
-#	_yodo1mas_singleton.connect("on_rewarded_video_ad_closed", self, "_on_rewarded_video_ad_closed")
-#	_yodo1mas_singleton.connect("on_rewarded", self, "_on_rewarded")
+	
+	_yodo1mas_singleton.connect("on_reward_video_not_loaded", self, "_on_reward_video_not_loaded")
+	_yodo1mas_singleton.connect("on_reward_video_opened", self, "_on_reward_video_opened")
+	_yodo1mas_singleton.connect("on_reward_video_closed", self, "_on_reward_video_closed")
+	_yodo1mas_singleton.connect("on_reward_video_earned", self, "_on_reward_video_earned")
+	_yodo1mas_singleton.connect("on_reward_video_error", self, "_on_reward_video_error")
 #	_yodo1mas_singleton.connect("on_rewarded_video_ad_left_application", self, "_on_rewarded_video_ad_left_application")
 #	_yodo1mas_singleton.connect("on_rewarded_video_ad_failed_to_load", self, "_on_rewarded_video_ad_failed_to_load")
 #	_yodo1mas_singleton.connect("on_rewarded_video_ad_opened", self, "_on_rewarded_video_ad_opened")
@@ -116,45 +120,38 @@ func get_banner_dimension() -> Vector2:
 
 # callbacks
 
-func _on_admob_ad_loaded() -> void:
-	emit_signal("banner_loaded")
+func _on_interstitial_not_loaded() -> void:
+	print("Godot app -> yodo1mas, _on_interstitial_not_loaded")
 	
-func _on_admob_banner_failed_to_load(error_code:int) -> void:
-	emit_signal("banner_failed_to_load", error_code)
-	
-func _on_interstitial_loaded() -> void:
-	emit_signal("interstitial_loaded")
-
-func _on_interstitial_open() -> void:
-	print("Godot app -> yodo1mas, _on_interstitial_open")
+func _on_interstitial_opened() -> void:
+	print("Godot app -> yodo1mas, _on_interstitial_opened")
 	emit_signal("interstitial_closed")
 	
-func _on_interstitial_close() -> void:
-	print("Godot app -> yodo1mas, _on_interstitial_close")
+func _on_interstitial_closed() -> void:
+	print("Godot app -> yodo1mas, _on_interstitial_closed")
 	emit_signal("interstitial_closed")
 	
 func _on_interstitial_error(error_code:int) -> void:
-	print("Godot app -> yodo1mas, error_code: " + String(error_code))
+	print("Godot app -> interstitial, yodo1mas, error_code: " + String(error_code))
 	emit_signal("interstitial_failed_to_load", error_code)
 
 
-func _on_rewarded_video_ad_loaded() -> void:
-	emit_signal("rewarded_video_loaded")
+func _on_reward_video_not_loaded() -> void:
+	print("Godot app -> yodo1mas, _on_reward_video_not_loaded")
+	
+func _on_reward_video_opened() -> void:
+	print("Godot app -> yodo1mas, _on_reward_video_opened")
+	emit_signal("rewarded_video_opene")
 
-func _on_rewarded_video_ad_closed() -> void:
-	emit_signal("rewarded_video_closed")
+func _on_reward_video_closed() -> void:
+	print("Godot app -> yodo1mas, _on_reward_video_closed")
+	emit_signal("rewarded_video_close")
+	
+func _on_reward_video_error(error_code:int) -> void:
+	print("Godot app -> reward_video, yodo1mas, error_code: " + String(error_code))
+	emit_signal("rewarded_video_error")
 
-func _on_rewarded(currency:String, amount:int) -> void:
-	emit_signal("rewarded", currency, amount)
+func _on_reward_video_earned() -> void:
+	print("Godot app -> yodo1mas, _on_reward_video_earned")
+#	emit_signal("rewarded", currency, amount)
 	
-func _on_rewarded_video_ad_left_application() -> void:
-	emit_signal("rewarded_video_left_application")
-	
-func _on_rewarded_video_ad_failed_to_load(error_code:int) -> void:
-	emit_signal("rewarded_video_failed_to_load", error_code)
-	
-func _on_rewarded_video_ad_opened() -> void:
-	emit_signal("rewarded_video_opened")
-	
-func _on_rewarded_video_started() -> void:
-	emit_signal("rewarded_video_started")
