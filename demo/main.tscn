@@ -21,8 +21,8 @@ __meta__ = {
 [node name="Orange" type="ColorRect" parent="CanvasLayer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-margin_right = 40.0
-margin_bottom = 40.0
+margin_right = 0.0639648
+margin_bottom = -15.2
 color = Color( 1, 0.4, 0, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
@@ -199,16 +199,16 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="DebugOut" type="RichTextLabel" parent="CanvasLayer"]
+[node name="DebugOut" type="RichTextLabel" parent="CanvasLayer/Orange"]
 modulate = Color( 0.453125, 0.227999, 0.227999, 1 )
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -469.108
-margin_top = 85.6558
-margin_right = -89.1082
-margin_bottom = 144.656
+margin_left = -489.0
+margin_top = 66.0
+margin_right = -109.0
+margin_bottom = 272.0
 scroll_following = true
 __meta__ = {
 "_edit_use_anchors_": false
@@ -221,3 +221,15 @@ __meta__ = {
 }
 app_id_ios = "BkFDs2l8K4k"
 app_id_android = "emXSs0Md7ZC"
+[connection signal="banner_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_closed"]
+[connection signal="banner_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_error" binds= [ 0 ]]
+[connection signal="banner_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_not_loaded"]
+[connection signal="banner_ad_opened" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_opened"]
+[connection signal="interstitial_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_closed"]
+[connection signal="interstitial_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_error" binds= [ 0 ]]
+[connection signal="interstitial_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_not_loaded"]
+[connection signal="interstitial_ad_opened" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_opened"]
+[connection signal="rewarded_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_closed"]
+[connection signal="rewarded_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_error" binds= [ 0 ]]
+[connection signal="rewarded_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_not_loaded"]
+[connection signal="rewarded_ad_opened" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_opened"]
