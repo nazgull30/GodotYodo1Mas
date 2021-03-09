@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scripts/main.gd" type="Script" id=1]
 [ext_resource path="res://scripts/yodo1mas.gd" type="Script" id=2]
@@ -11,13 +11,17 @@
 [ext_resource path="res://assets/ui/privacy.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts/ProximaNova-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://assets/fonts/ProximaNova-Bold.ttf" type="DynamicFontData" id=11]
+[ext_resource path="res://scripts/privacy_popups.gd" type="Script" id=12]
 
-[sub_resource type="DynamicFont" id=1]
-size = 20
+[sub_resource type="StyleBoxFlat" id=1]
+bg_color = Color( 0.2, 0.2, 0.2, 1 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 30
 use_filter = true
 font_data = ExtResource( 10 )
 
-[sub_resource type="DynamicFont" id=2]
+[sub_resource type="DynamicFont" id=3]
 size = 50
 font_data = ExtResource( 11 )
 
@@ -27,10 +31,12 @@ __meta__ = {
 "__editor_plugin_screen__": "3D"
 }
 
+[node name="PrivacyPopupsController" type="Node2D" parent="."]
+script = ExtResource( 12 )
+
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Orange" type="ColorRect" parent="CanvasLayer"]
-visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.0639648
@@ -226,19 +232,20 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="PopupDialog - Gdpr" type="PopupDialog" parent="CanvasLayer"]
+[node name="PdGdpr" type="PopupDialog" parent="CanvasLayer"]
 visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PopupDialog - Gdpr"]
-margin_top = 80.0
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PdGdpr"]
+margin_top = 31.0
 margin_right = 1019.0
-margin_bottom = 328.0
-custom_fonts/normal_font = SubResource( 1 )
+margin_bottom = 411.0
+custom_fonts/normal_font = SubResource( 2 )
 bbcode_enabled = true
 bbcode_text = "[center]
 GDPR
@@ -261,7 +268,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Yes" type="ColorPickerButton" parent="CanvasLayer/PopupDialog - Gdpr"]
+[node name="PdGdpr_Yes" type="ColorPickerButton" parent="CanvasLayer/PdGdpr"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -275,15 +282,15 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/PopupDialog - Gdpr/Yes"]
+[node name="Label" type="Label" parent="CanvasLayer/PdGdpr/PdGdpr_Yes"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
 text = "Yes"
 align = 1
 valign = 1
 
-[node name="No" type="ColorPickerButton" parent="CanvasLayer/PopupDialog - Gdpr"]
+[node name="PdGdpr_No" type="ColorPickerButton" parent="CanvasLayer/PdGdpr"]
 anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -296,10 +303,162 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Label" type="Label" parent="CanvasLayer/PopupDialog - Gdpr/No"]
+[node name="Label" type="Label" parent="CanvasLayer/PdGdpr/PdGdpr_No"]
 anchor_right = 1.0
 anchor_bottom = 1.0
-custom_fonts/font = SubResource( 2 )
+custom_fonts/font = SubResource( 3 )
+text = "No"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PdCoppa" type="PopupDialog" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PdCoppa"]
+margin_top = 100.0
+margin_right = 1019.0
+margin_bottom = 299.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]
+COPPA
+
+Please tell us if you are 13 or older
+[/center]"
+text = "
+COPPA
+
+Please tell us if you are 13 or older
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PdCoppa_Yes" type="ColorPickerButton" parent="CanvasLayer/PdCoppa"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -350.0
+margin_top = -150.0
+margin_right = -150.0
+margin_bottom = -80.0
+color = Color( 0.0352941, 0.658824, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PdCoppa/PdCoppa_Yes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "Yes"
+align = 1
+valign = 1
+
+[node name="PdCoppa_No" type="ColorPickerButton" parent="CanvasLayer/PdCoppa"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = -150.0
+margin_right = -674.0
+margin_bottom = -80.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PdCoppa/PdCoppa_No"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "No"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PdCcpa" type="PopupDialog" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_styles/panel = SubResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PdCcpa"]
+margin_top = 100.0
+margin_right = 1019.0
+margin_bottom = 299.0
+custom_fonts/normal_font = SubResource( 2 )
+bbcode_enabled = true
+bbcode_text = "[center]
+CCPA
+
+Under The California Privacy ACt, you have the right to choose not to have your tdata shared with third-party service provicers. Press Opt-Out to stop to sharing of your personal data.
+
+[/center]"
+text = "
+CCPA
+
+Under The California Privacy ACt, you have the right to choose not to have your tdata shared with third-party service provicers. Press Opt-Out to stop to sharing of your personal data.
+
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="PdCcpa_Yes" type="ColorPickerButton" parent="CanvasLayer/PdCcpa"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -350.0
+margin_top = -150.0
+margin_right = -150.0
+margin_bottom = -80.0
+color = Color( 0.0352941, 0.658824, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PdCcpa/PdCcpa_Yes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
+text = "Yes"
+align = 1
+valign = 1
+
+[node name="PdCcpa_No" type="ColorPickerButton" parent="CanvasLayer/PdCcpa"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = -150.0
+margin_right = -674.0
+margin_bottom = -80.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PdCcpa/PdCcpa_No"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 3 )
 text = "No"
 align = 1
 valign = 1
@@ -317,6 +476,12 @@ app_id_android = "emXSs0Md7ZC"
 [connection signal="pressed" from="CanvasLayer/Orange/BtnBannerAd" to="." method="_on_BtnBannerAd_pressed"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnInterstitialAd" to="." method="_on_BtnInterstitialAd_pressed"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnRewardedAd" to="." method="_on_RewardedAd_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_Yes" to="PrivacyPopupsController" method="_on_PdGdpr_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_No" to="PrivacyPopupsController" method="_on_PdGdpr_No_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_Yes" to="PrivacyPopupsController" method="_on_PdCoppa_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_No" to="PrivacyPopupsController" method="_on_PdCoppa_No_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_Yes" to="PrivacyPopupsController" method="_on_PdCcpa_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_No" to="PrivacyPopupsController" method="_on_PdCcpa_No_pressed"]
 [connection signal="banner_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_closed"]
 [connection signal="banner_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_error" binds= [ 0 ]]
 [connection signal="banner_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_not_loaded"]
