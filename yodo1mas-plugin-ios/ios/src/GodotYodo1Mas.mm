@@ -18,18 +18,18 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdOpened");
-    godotYodo1MasInstance->emit_signal("on_bannerAd_opened");
+    godotYodo1MasInstance->emit_signal("on_banner_ad_opened");
 }
 
 - (void)onAdClosed:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdClosed");
-    godotYodo1MasInstance->emit_signal("on_bannerAd_closed");
+    godotYodo1MasInstance->emit_signal("on_banner_ad_closed");
 }
 
 - (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
 	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
 		NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdError, %d", (int)error.code);
-	    godotYodo1MasInstance->emit_signal("on_bannerAd_error", (int)error.code);	
+	    godotYodo1MasInstance->emit_signal("on_banner_ad_error", (int)error.code);	
 	}
 }
 
@@ -49,18 +49,18 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdOpened");
-    godotYodo1MasInstance->emit_signal("on_interstitialAd_opened");
+    godotYodo1MasInstance->emit_signal("on_interstitial_ad_opened");
 }
 
 - (void)onAdClosed:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdClosed");
-    godotYodo1MasInstance->emit_signal("on_interstitialAd_closed");
+    godotYodo1MasInstance->emit_signal("on_interstitial_ad_closed");
 }
 
 - (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
 	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
 		NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdError, %d", (int)error.code);
-	    godotYodo1MasInstance->emit_signal("on_interstitialAd_error", (int)error.code);	
+	    godotYodo1MasInstance->emit_signal("on_interstitial_ad_error", (int)error.code);	
 	}
 }
 
@@ -80,23 +80,23 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdOpened");
-    godotYodo1MasInstance->emit_signal("on_rewardedAd_opened");
+    godotYodo1MasInstance->emit_signal("on_rewarded_ad_opened");
 }
 
 - (void)onAdClosed:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdClosed");
-    godotYodo1MasInstance->emit_signal("on_rewardedAd_closed");
+    godotYodo1MasInstance->emit_signal("on_rewarded_ad_closed");
 }
 
 - (void)onAdRewardEarned:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdRewardEarned");
-    godotYodo1MasInstance->emit_signal("on_rewardedAd_earned");
+    godotYodo1MasInstance->emit_signal("on_rewarded_ad_earned");
 }
 
 - (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
 	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
 		NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdError, %d", (int)error.code);
-	    godotYodo1MasInstance->emit_signal("on_rewardedAd_error", (int)error.code);
+	    godotYodo1MasInstance->emit_signal("on_rewarded_ad_error", (int)error.code);
 	}
 }
 
@@ -168,7 +168,7 @@ void GodotYodo1Mas::showBannerAd() {
 	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
 	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
 	if(!isBannerAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_banner_ad_not_loaded");
 		return;
 	}
     
@@ -184,7 +184,7 @@ void showBannerAdWithAlign(const int align) {
 	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
 	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
 	if(!isBannerAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_banner_ad_not_loaded");
 		return;
 	}
     
@@ -205,7 +205,7 @@ void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offset
 	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
 	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
 	if(!isBannerAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_banner_ad_not_loaded");
 		return;
 	}
     
@@ -241,7 +241,7 @@ void GodotYodo1Mas::showInterstitialAd() {
 	bool isInterstitialAdLoaded = [[Yodo1Mas sharedInstance] isInterstitialAdLoaded];
 	NSLog(@"GodotYodo1MasWrapper isInterstitialAdLoaded %d", isInterstitialAdLoaded);
 	if(!isInterstitialAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_interstitialAd_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_interstitial_ad_not_loaded");
 		return;
 	}
 
@@ -269,7 +269,7 @@ void GodotYodo1Mas::showRewardedAd() {
 	bool isRewardedAdLoaded = [[Yodo1Mas sharedInstance] isRewardAdLoaded];
 	NSLog(@"GodotYodo1MasWrapper isRewardedAdLoaded %d", isRewardedAdLoaded);
 	if(!isRewardedAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_rewardedAd_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_rewarded_ad_not_loaded");
 		return;
 	}
     
@@ -297,20 +297,20 @@ void GodotYodo1Mas::_bind_methods() {
 	ClassDB::bind_method("isRewardedAdLoaded", &GodotYodo1Mas::isRewardedAdLoaded);
     ClassDB::bind_method("showRewardedAd", &GodotYodo1Mas::showRewardedAd);
 
-	ADD_SIGNAL(MethodInfo("on_bannerAd_not_loaded"));
-    ADD_SIGNAL(MethodInfo("on_bannerAd_opened"));
-    ADD_SIGNAL(MethodInfo("on_bannerAd_closed"));
-	ADD_SIGNAL(MethodInfo("on_bannerAd_error"));
+	ADD_SIGNAL(MethodInfo("on_banner_ad_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_banner_ad_opened"));
+    ADD_SIGNAL(MethodInfo("on_banner_ad_closed"));
+	ADD_SIGNAL(MethodInfo("on_banner_ad_error"));
 	
-	ADD_SIGNAL(MethodInfo("on_interstitialAd_not_loaded"));
-    ADD_SIGNAL(MethodInfo("on_interstitialAd_opened"));
-    ADD_SIGNAL(MethodInfo("on_interstitialAd_closed"));
-	ADD_SIGNAL(MethodInfo("on_interstitialAd_error"));
+	ADD_SIGNAL(MethodInfo("on_interstitial_ad_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_interstitial_ad_opened"));
+    ADD_SIGNAL(MethodInfo("on_interstitial_ad_closed"));
+	ADD_SIGNAL(MethodInfo("on_interstitial_ad_error"));
 	
-	ADD_SIGNAL(MethodInfo("on_rewardedAd_not_loaded"));
-    ADD_SIGNAL(MethodInfo("on_rewardedAd_opened"));
-    ADD_SIGNAL(MethodInfo("on_rewardedAd_closed"));
-	ADD_SIGNAL(MethodInfo("on_rewardedAd_earned"));
-	ADD_SIGNAL(MethodInfo("on_rewardedAd_error"));
+	ADD_SIGNAL(MethodInfo("on_rewarded_ad_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_rewarded_ad_opened"));
+    ADD_SIGNAL(MethodInfo("on_rewarded_ad_closed"));
+	ADD_SIGNAL(MethodInfo("on_rewarded_ad_earned"));
+	ADD_SIGNAL(MethodInfo("on_rewarded_ad_error"));
 
 }
