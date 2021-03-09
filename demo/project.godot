@@ -12,10 +12,10 @@ _global_script_classes=[ {
 "base": "Node",
 "class": "Yodo1Mas",
 "language": "GDScript",
-"path": "res://admob-lib/yodo1mas.gd"
+"path": "res://yodo1mas-lib/yodo1mas.gd"
 } ]
 _global_script_class_icons={
-"Yodo1Mas": "res://admob-lib/icon.png"
+"Yodo1Mas": "res://yodo1mas-lib/icon.png"
 }
 
 [application]

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/icon.png-5ef3e134ec6fe7e9789c413d742d731b.stex"
+path="res://.import/icon.png-4bb878bd051ac4314cad97cdd93048d6.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://admob-lib/icon.png"
-dest_files=[ "res://.import/icon.png-5ef3e134ec6fe7e9789c413d742d731b.stex" ]
+source_file="res://yodo1mas-lib/icon.png"
+dest_files=[ "res://.import/icon.png-4bb878bd051ac4314cad97cdd93048d6.stex" ]
 
 [params]
 
