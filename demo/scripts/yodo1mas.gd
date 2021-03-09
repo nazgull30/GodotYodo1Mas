@@ -1,6 +1,6 @@
 extends Node
 
-class_name Yodo1Mas, "res://yodo1mas-lib/icon.png"
+class_name Yodo1Mas
 
 enum BannerAlign {
 	BANNER_LEFT = 1, 

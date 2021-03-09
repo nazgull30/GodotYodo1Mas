@@ -1,7 +1,7 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=14 format=2]
 
-[ext_resource path="res://main.gd" type="Script" id=1]
-[ext_resource path="res://yodo1mas-lib/yodo1mas.gd" type="Script" id=2]
+[ext_resource path="res://scripts/main.gd" type="Script" id=1]
+[ext_resource path="res://scripts/yodo1mas.gd" type="Script" id=2]
 [ext_resource path="res://assets/ui/banner.png" type="Texture" id=3]
 [ext_resource path="res://assets/ui/interstitial.png" type="Texture" id=4]
 [ext_resource path="res://assets/ui/videorewarded.png" type="Texture" id=5]
@@ -9,6 +9,17 @@
 [ext_resource path="res://assets/ui/whitebg.png" type="Texture" id=7]
 [ext_resource path="res://assets/ui/coin.png" type="Texture" id=8]
 [ext_resource path="res://assets/ui/privacy.png" type="Texture" id=9]
+[ext_resource path="res://assets/fonts/ProximaNova-Regular.ttf" type="DynamicFontData" id=10]
+[ext_resource path="res://assets/fonts/ProximaNova-Bold.ttf" type="DynamicFontData" id=11]
+
+[sub_resource type="DynamicFont" id=1]
+size = 20
+use_filter = true
+font_data = ExtResource( 10 )
+
+[sub_resource type="DynamicFont" id=2]
+size = 50
+font_data = ExtResource( 11 )
 
 [node name="Node2D" type="Node2D"]
 script = ExtResource( 1 )
@@ -19,6 +30,7 @@ __meta__ = {
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 
 [node name="Orange" type="ColorRect" parent="CanvasLayer"]
+visible = false
 anchor_right = 1.0
 anchor_bottom = 1.0
 margin_right = 0.0639648
@@ -215,8 +227,85 @@ __meta__ = {
 }
 
 [node name="PopupDialog - Gdpr" type="PopupDialog" parent="CanvasLayer"]
+visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PopupDialog - Gdpr"]
+margin_top = 80.0
+margin_right = 1019.0
+margin_bottom = 328.0
+custom_fonts/normal_font = SubResource( 1 )
+bbcode_enabled = true
+bbcode_text = "[center]
+GDPR
+
+This game personalizes your advertising experience through a couple of tools.
+This help us make this game free, improve it and fix all bugs. By consenting to this enhanced experience you will see content that is more relevant to you. 
+
+Depending on your privacy settings, our partners and tools may collect and process personal data such as device id, location data,  or other demographic and interest data about your to provide personalized experience such as advertisement and recommendations. 
+[/center]"
+text = "
+GDPR
+
+This game personalizes your advertising experience through a couple of tools.
+This help us make this game free, improve it and fix all bugs. By consenting to this enhanced experience you will see content that is more relevant to you. 
+
+Depending on your privacy settings, our partners and tools may collect and process personal data such as device id, location data,  or other demographic and interest data about your to provide personalized experience such as advertisement and recommendations. 
+"
+scroll_active = false
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Yes" type="ColorPickerButton" parent="CanvasLayer/PopupDialog - Gdpr"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = -350.0
+margin_top = -150.0
+margin_right = -150.0
+margin_bottom = -80.0
+color = Color( 0.0352941, 0.658824, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PopupDialog - Gdpr/Yes"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "Yes"
+align = 1
+valign = 1
+
+[node name="No" type="ColorPickerButton" parent="CanvasLayer/PopupDialog - Gdpr"]
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_left = 150.0
+margin_top = -150.0
+margin_right = -674.0
+margin_bottom = -80.0
+color = Color( 1, 0, 0, 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Label" type="Label" parent="CanvasLayer/PopupDialog - Gdpr/No"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+custom_fonts/font = SubResource( 2 )
+text = "No"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Yodo1Mas" type="Node" parent="."]
 script = ExtResource( 2 )
