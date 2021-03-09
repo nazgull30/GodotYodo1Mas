@@ -1,38 +1,24 @@
 extends Node2D
 
 onready var yodo1mas = $Yodo1Mas
-onready var debug_out = $CanvasLayer/DebugOut
-
-func _ready():
-# warning-ignore:return_value_discarded
-	get_tree().connect("screen_resized", self, "_on_resize")
+onready var debug_out = $CanvasLayer/Orange/DebugOut
 
 # buttons callbacks
-func _on_BtnInit_pressed() -> void:
-	yodo1mas.init()
 	
-func _on_BtnBanner_toggled(button_pressed):
-		if button_pressed: yodo1mas.show_banner()
-		else: yodo1mas.hide_banner()
+func _on_BtnBannerAd_pressed():
+	debug_out.text = debug_out.text + "Banner loaded before shown = " + str(yodo1mas.is_banner_ad_loaded()) +"\n"
+	yodo1mas.show_banner_ad()
+	debug_out.text = debug_out.text + "Banner loaded after shown = " + str(yodo1mas.is_banner_ad_loaded()) +"\n"
 
-func _on_BtnBannerMove_toggled(button_pressed: bool) -> void:
-	yodo1mas.move_banner(button_pressed)
-	$"CanvasLayer/BtnBannerResize".disabled = true
-	$"CanvasLayer/BtnBanner".disabled = true
-	$"CanvasLayer/BtnBannerMove".disabled = true
+func _on_BtnInterstitialAd_pressed() -> void:
+	debug_out.text = debug_out.text + "Interstitial loaded before shown = " + str(yodo1mas.is_interstitial_ad_loaded()) +"\n"
+	yodo1mas.show_interstitial_ad()
+	debug_out.text = debug_out.text + "Interstitial loaded after shown = " + str(yodo1mas.is_interstitial_ad_loaded()) +"\n"
 
-func _on_BtnBannerResize_pressed() -> void:
-	yodo1mas.banner_resize()
-
-func _on_BtnInterstitial_pressed():
-	debug_out.text = debug_out.text + "Interstitial loaded before shown = " + str(yodo1mas.is_interstitial_loaded()) +"\n"
-	yodo1mas.show_interstitial()
-	debug_out.text = debug_out.text + "Interstitial loaded after shown = " + str(yodo1mas.is_interstitial_loaded()) +"\n"
-
-func _on_BtnRewardedVideo_pressed():
-	debug_out.text = debug_out.text + "Rewarded loaded before shown = " + str(yodo1mas.is_rewarded_video_loaded()) +"\n"
-	yodo1mas.show_rewarded_video()
-	debug_out.text = debug_out.text + "Rewarded loaded after shown = " + str(yodo1mas.is_rewarded_video_loaded()) +"\n"
+func _on_RewardedAd_pressed() -> void:
+	debug_out.text = debug_out.text + "Rewarded video loaded before shown = " + str(yodo1mas.is_rewarded_ad_loaded()) +"\n"
+	yodo1mas.show_rewarded_ad()
+	debug_out.text = debug_out.text + "Rewarded video loaded after shown = " + str(yodo1mas.is_rewarded_ad_loaded()) + "\n"
 	
 	
 	

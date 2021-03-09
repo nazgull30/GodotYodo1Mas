@@ -91,32 +91,44 @@ func connect_signals() -> void:
 # show / hide
 
 func is_banner_ad_loaded() -> bool:
+	if(_yodo1mas_singleton == null):
+		return false;	
 	return _yodo1mas_singleton.isBannerAdLoaded();
 		
 func show_banner_ad() -> void:
-	_yodo1mas_singleton.showBanner()
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.showBanner()
 		
 func show_banner_ad_with_align(align: int) -> void:
-	_yodo1mas_singleton.showBannerAdWithAlign(align)
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.showBannerAdWithAlign(align)
 
 func show_banner_ad_with_align_and_offset(align: int, offset: Vector2) -> void:
-	_yodo1mas_singleton.showBannerAdWithAlignAndOffset(align, offset.x, offset.y)		
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.showBannerAdWithAlign(align, offset.x, offset.y)		
 		
 		
 func dismiss_banner_ad() -> void:
-	_yodo1mas_singleton.dismissBannerAd()
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.dismissBannerAd()
 
 func is_interstitial_ad_loaded() -> bool:
+	if(_yodo1mas_singleton == null):
+		return false;
 	return _yodo1mas_singleton.isInterstitialAdLoaded()
 	
 func show_interstitial_ad() -> void:
-	_yodo1mas_singleton.showInterstitialAd()
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.showInterstitialAd()
 
 func is_rewarded_ad_loaded() -> bool:
+	if(_yodo1mas_singleton == null):
+		return false;
 	return _yodo1mas_singleton.isRewardedAdLoaded()
 	
 func show_rewarded_ad() -> void:
-	_yodo1mas_singleton.showRewardedAd()
+	if(_yodo1mas_singleton != null):
+		_yodo1mas_singleton.showRewardedAd()
 
 # callbacks
 

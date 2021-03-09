@@ -214,6 +214,10 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
+[node name="PopupDialog - Gdpr" type="PopupDialog" parent="CanvasLayer"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
 [node name="Yodo1Mas" type="Node" parent="."]
 script = ExtResource( 2 )
 __meta__ = {
@@ -221,6 +225,9 @@ __meta__ = {
 }
 app_id_ios = "BkFDs2l8K4k"
 app_id_android = "emXSs0Md7ZC"
+[connection signal="pressed" from="CanvasLayer/Orange/BtnBannerAd" to="." method="_on_BtnBannerAd_pressed"]
+[connection signal="pressed" from="CanvasLayer/Orange/BtnInterstitialAd" to="." method="_on_BtnInterstitialAd_pressed"]
+[connection signal="pressed" from="CanvasLayer/Orange/BtnRewardedAd" to="." method="_on_RewardedAd_pressed"]
 [connection signal="banner_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_closed"]
 [connection signal="banner_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_error" binds= [ 0 ]]
 [connection signal="banner_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_not_loaded"]
