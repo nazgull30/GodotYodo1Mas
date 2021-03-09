@@ -22,7 +22,7 @@ public:
 	bool isBannerAdLoaded();
     void showBannerAd();
 	void showBannerAdWithAlign(const int align);
-	void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offsetY);
+	void showBannerAdWithAlignAndOffset(const int align, const int offsetX, const int offsetY);
     void dismissBannerAd();
 	
 
