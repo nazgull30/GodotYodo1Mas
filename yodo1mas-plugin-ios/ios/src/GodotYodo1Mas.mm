@@ -5,7 +5,37 @@
 static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 
-@interface GodotYodo1MasInterstitial: NSObject<Yodo1MasInterstitialAdDelegate>
+@interface GodotYodo1MasBannerAd: NSObject<Yodo1MasBannerAdDelegate>
+
+- (void)onAdOpened:(Yodo1MasAdEvent *)event;
+- (void)onAdClosed:(Yodo1MasAdEvent *)event;
+- (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error;
+
+@end
+
+@implementation GodotYodo1MasBannerAd
+
+- (void)onAdOpened:(Yodo1MasAdEvent *)event {
+	NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdOpened");
+    godotYodo1MasInstance->emit_signal("on_bannerAd_opened");
+}
+
+- (void)onAdClosed:(Yodo1MasAdEvent *)event {
+	NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdClosed");
+    godotYodo1MasInstance->emit_signal("on_bannerAd_closed");
+}
+
+- (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
+	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
+		NSLog(@"GodotYodo1Mas -> GodotYodo1MasBannerAd onAdError, %d", (int)error.code);
+	    godotYodo1MasInstance->emit_signal("on_bannerAd_error", (int)error.code);	
+	}
+}
+
+@end
+
+
+@interface GodotYodo1MasInterstitialAd: NSObject<Yodo1MasInterstitialAdDelegate>
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event;
 - (void)onAdClosed:(Yodo1MasAdEvent *)event;
@@ -14,29 +44,29 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 @end
 
 
-@implementation GodotYodo1MasInterstitial
+@implementation GodotYodo1MasInterstitialAd
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdOpened");
-    godotYodo1MasInstance->emit_signal("on_interstitial_opened");
+    godotYodo1MasInstance->emit_signal("on_interstitialAd_opened");
 }
 
 - (void)onAdClosed:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdClosed");
-    godotYodo1MasInstance->emit_signal("on_interstitial_closed");
+    godotYodo1MasInstance->emit_signal("on_interstitialAd_closed");
 }
 
 - (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
 	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
 		NSLog(@"GodotYodo1Mas -> GodotYodo1MasInterstitial onAdError, %d", (int)error.code);
-	    godotYodo1MasInstance->emit_signal("on_interstitial_error", (int)error.code);	
+	    godotYodo1MasInstance->emit_signal("on_interstitialAd_error", (int)error.code);	
 	}
 }
 
 @end
 
 
-@interface GodotYodo1MasRewardAd: NSObject<Yodo1MasRewardAdDelegate>
+@interface GodotYodo1MasRewardedAd: NSObject<Yodo1MasRewardAdDelegate>
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event;
 - (void)onAdClosed:(Yodo1MasAdEvent *)event;
@@ -45,27 +75,27 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 @end
 
 
-@implementation GodotYodo1MasRewardAd
+@implementation GodotYodo1MasRewardedAd
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdOpened");
-    godotYodo1MasInstance->emit_signal("on_reward_video_opened");
+    godotYodo1MasInstance->emit_signal("on_rewardedAd_opened");
 }
 
 - (void)onAdClosed:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdClosed");
-    godotYodo1MasInstance->emit_signal("on_reward_video_closed");
+    godotYodo1MasInstance->emit_signal("on_rewardedAd_closed");
 }
 
 - (void)onAdRewardEarned:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdRewardEarned");
-    godotYodo1MasInstance->emit_signal("on_reward_video_earned");
+    godotYodo1MasInstance->emit_signal("on_rewardedAd_earned");
 }
 
 - (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error {
 	if (error.code != Yodo1MasErrorCodeAdLoadFail) {
 		NSLog(@"GodotYodo1Mas -> GodotYodo1MasRewardAd onAdError, %d", (int)error.code);
-	    godotYodo1MasInstance->emit_signal("reward_video_error", (int)error.code);
+	    godotYodo1MasInstance->emit_signal("on_rewardedAd_error", (int)error.code);
 	}
 }
 
@@ -73,7 +103,8 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 
 
-
+bool initialized;
+	
 GodotYodo1Mas::GodotYodo1Mas() {
 	godotYodo1MasInstance = this;
 }
@@ -87,91 +118,177 @@ bool GodotYodo1Mas::isInitialized() {
 
 
 void GodotYodo1Mas::init(const String &appId) {
-    NSLog(@"GodotYodo1Mas Module init");
-	
-	[Yodo1Mas sharedInstance].interstitialAdDelegate = [[GodotYodo1MasInterstitial alloc] init];
-	[Yodo1Mas sharedInstance].rewardAdDelegate = [[GodotYodo1MasRewardAd alloc] init];
+    NSLog(@"GodotYodo1MasWrapper init");
+
+	[Yodo1Mas sharedInstance].bannerAdDelegate = [[GodotYodo1MasBannerAd alloc] init];	
+	[Yodo1Mas sharedInstance].interstitialAdDelegate = [[GodotYodo1MasInterstitialAd alloc] init];
+	[Yodo1Mas sharedInstance].rewardAdDelegate = [[GodotYodo1MasRewardedAd alloc] init];
 	
 	NSString *appIdPr = [NSString stringWithCString:appId.utf8().get_data() encoding: NSUTF8StringEncoding];
 	// [UnityAds initialize:appIdPr delegate:nil testMode:YES];
     [[Yodo1Mas sharedInstance] initWithAppId:appIdPr successful:^{
 		initialized = true;
-		NSLog(@"GodotYodo1Mas -> initialize successful");
+		NSLog(@"GodotYodo1MasWrapper -> initialize successful");
     } fail:^(NSError * _Nonnull error) {
-		NSLog(@"GodotYodo1Mas -> initialize error: %@", error);
+		NSLog(@"GodotYodo1MasWrapper -> initialize error: %@", error);
     }];
 }
 
-void GodotYodo1Mas::showBanner() {
+
+// BEGIN BANNER AD
+
+bool GodotYodo1Mas::isBannerAdLoaded() {
+	return [[Yodo1Mas sharedInstance] isBannerAdLoaded];
+}
+
+void GodotYodo1Mas::showBannerAd() {
     if (!initialized) {
-        NSLog(@"GodotYodo1Mas Module not initialized");
+        NSLog(@"GodotYodo1MasWrapper not initialized");
         return;
     }
+	
+	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
+	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
+	if(!isBannerAdLoaded) {
+		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		return;
+	}
     
 	[[Yodo1Mas sharedInstance] showBannerAd];
 }
 
-void GodotYodo1Mas::hideBanner() {
+void showBannerAdWithAlign(const int align) {
     if (!initialized) {
-        NSLog(@"GodotYodo1Mas Module not initialized");
+        NSLog(@"GodotYodo1MasWrapper not initialized");
+        return;
+    }
+	
+	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
+	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
+	if(!isBannerAdLoaded) {
+		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		return;
+	}
+    
+	[[Yodo1Mas sharedInstance] showBannerAdWithAlign:(Yodo1MasAdBannerAlign)align];
+}
+
+void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offsetY){
+    if (!initialized) {
+        NSLog(@"GodotYodo1MasWrapper not initialized");
+        return;
+    }
+	
+    if (!initialized) {
+        NSLog(@"GodotYodo1MasWrapper not initialized");
+        return;
+    }
+	
+	bool isBannerAdLoaded = [[Yodo1Mas sharedInstance] isBannerAdLoaded];
+	NSLog(@"GodotYodo1MasWrapper isBannerAdLoaded %d", isBannerAdLoaded);
+	if(!isBannerAdLoaded) {
+		godotYodo1MasInstance->emit_signal("on_bannerAd_not_loaded");
+		return;
+	}
+    
+	CGPoint offset = CGPointMake(offsetX, offsetY);
+	[[Yodo1Mas sharedInstance] showBannerAdWithAlign:(Yodo1MasAdBannerAlign)align offset:offset];
+}
+
+void GodotYodo1Mas::dismissBannerAd() {
+    if (!initialized) {
+        NSLog(@"GodotYodo1MasWrapper not initialized");
         return;
     }
 	
 	[[Yodo1Mas sharedInstance] dismissBannerAd];
 }
 
-void GodotYodo1Mas::showInterstitial() {
+// END BANNER AD
+
+
+
+// BEGIN INTERSTITIAL AD
+
+bool GodotYodo1Mas::isInterstitialAdLoaded() {
+	return [[Yodo1Mas sharedInstance] isInterstitialAdLoaded];
+}
+
+void GodotYodo1Mas::showInterstitialAd() {
     if (!initialized) {
-        NSLog(@"GodotYodo1Mas Module not initialized");
+        NSLog(@"GodotYodo1MasWrapper not initialized");
         return;
     }
 	
 	bool isInterstitialAdLoaded = [[Yodo1Mas sharedInstance] isInterstitialAdLoaded];
-	NSLog(@"GodotYodo1Mas isInterstitialAdLoaded %d", isInterstitialAdLoaded);
+	NSLog(@"GodotYodo1MasWrapper isInterstitialAdLoaded %d", isInterstitialAdLoaded);
 	if(!isInterstitialAdLoaded) {
-		godotYodo1MasInstance->emit_signal("on_interstitial_not_loaded");
+		godotYodo1MasInstance->emit_signal("on_interstitialAd_not_loaded");
 		return;
 	}
 
-    NSLog(@"GodotYodo1Mas showInterstitial");    
+    NSLog(@"GodotYodo1MasWrapper showInterstitialAd");    
 	[[Yodo1Mas sharedInstance] showInterstitialAd];
 }
 
+// END INTERSTITIAL AD
 
-void GodotYodo1Mas::showRewardedVideo() {
+
+
+
+// BEGIN REWARDED AD
+
+bool GodotYodo1Mas::isRewardedAdLoaded() {
+	return [[Yodo1Mas sharedInstance] isRewardAdLoaded];
+}
+
+void GodotYodo1Mas::showRewardedAd() {
     if (!initialized) {
-        NSLog(@"GodotAdmob Module not initialized");
+        NSLog(@"GodotYodo1MasWrapper Module not initialized");
         return;
     }
 	
-	bool isRewardedVideoLoaded = [[Yodo1Mas sharedInstance] isRewardAdLoaded];
-	NSLog(@"GodotYodo1Mas isRewardedVideoLoaded %d", isRewardedVideoLoaded);
-	if(!isRewardedVideoLoaded) {
-		godotYodo1MasInstance->emit_signal("on_reward_video_not_loaded");
+	bool isRewardedAdLoaded = [[Yodo1Mas sharedInstance] isRewardAdLoaded];
+	NSLog(@"GodotYodo1MasWrapper isRewardedAdLoaded %d", isRewardedAdLoaded);
+	if(!isRewardedAdLoaded) {
+		godotYodo1MasInstance->emit_signal("on_rewardedAd_not_loaded");
 		return;
 	}
     
-	NSLog(@"GodotYodo1Mas showRewardedVideo");    
+	NSLog(@"GodotYodo1MasWrapper showRewardedVideo");    
 	[[Yodo1Mas sharedInstance] showRewardAd];
 }
 
+// END REWARDED AD
 
 void GodotYodo1Mas::_bind_methods() {
-    ClassDB::bind_method("init",&GodotYodo1Mas::init);
-    ClassDB::bind_method("showBanner",&GodotYodo1Mas::showBanner);
-    ClassDB::bind_method("hideBanner",&GodotYodo1Mas::hideBanner);
-    ClassDB::bind_method("showInterstitial",&GodotYodo1Mas::showInterstitial);
-    ClassDB::bind_method("showRewardedVideo",&GodotYodo1Mas::showRewardedVideo);
+    ClassDB::bind_method("init", &GodotYodo1Mas::init);
+
+    ClassDB::bind_method("showBannerAd", &GodotYodo1Mas::showBannerAd);
+	ClassDB::bind_method("showBannerAdWithAlign", &GodotYodo1Mas::showBannerAdWithAlign);
+	ClassDB::bind_method("showBannerAdWithAlignAndOffset", &GodotYodo1Mas::showBannerAdWithAlignAndOffset);
+    ClassDB::bind_method("dismissBannerAd" ,&GodotYodo1Mas::dismissBannerAd);
+
+    ClassDB::bind_method("isInterstitialAdLoaded", &GodotYodo1Mas::isInterstitialAdLoaded);
+    ClassDB::bind_method("showInterstitialAd", &GodotYodo1Mas::showInterstitialAd);
+
+	ClassDB::bind_method("isRewardedAdLoaded", &GodotYodo1Mas::isRewardedAdLoaded);
+    ClassDB::bind_method("showRewardedAd", &GodotYodo1Mas::showRewardedAd);
+
+	ADD_SIGNAL(MethodInfo("on_bannerAd_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_bannerAd_opened"));
+    ADD_SIGNAL(MethodInfo("on_bannerAd_closed"));
+	ADD_SIGNAL(MethodInfo("on_bannerAd_error"));
 	
-	ADD_SIGNAL(MethodInfo("on_interstitial_not_loaded"));
-    ADD_SIGNAL(MethodInfo("on_interstitial_opened"));
-    ADD_SIGNAL(MethodInfo("on_interstitial_closed"));
-	ADD_SIGNAL(MethodInfo("on_interstitial_error"));
+	ADD_SIGNAL(MethodInfo("on_interstitialAd_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_interstitialAd_opened"));
+    ADD_SIGNAL(MethodInfo("on_interstitialAd_closed"));
+	ADD_SIGNAL(MethodInfo("on_interstitialAd_error"));
 	
-	ADD_SIGNAL(MethodInfo("on_reward_video_not_loaded"));
-    ADD_SIGNAL(MethodInfo("on_reward_video_opened"));
-    ADD_SIGNAL(MethodInfo("on_reward_video_closed"));
-	ADD_SIGNAL(MethodInfo("on_reward_video_earned"));
-	ADD_SIGNAL(MethodInfo("on_reward_video_error"));
+	ADD_SIGNAL(MethodInfo("on_rewardedAd_not_loaded"));
+    ADD_SIGNAL(MethodInfo("on_rewardedAd_opened"));
+    ADD_SIGNAL(MethodInfo("on_rewardedAd_closed"));
+	ADD_SIGNAL(MethodInfo("on_rewardedAd_earned"));
+	ADD_SIGNAL(MethodInfo("on_rewardedAd_error"));
 
 }

@@ -14,10 +14,20 @@ protected:
 public:
 	bool isInitialized();
     void init(const String &appId);
-    void showBanner();
-    void hideBanner();
-    void showInterstitial();
-    void showRewardedVideo();
+
+
+	bool isBannerAdLoaded();
+    void showBannerAd();
+	void showBannerAdWithAlign(const int align);
+	void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offsetY);
+    void dismissBannerAd();
+	
+
+	bool isInterstitialAdLoaded();
+    void showInterstitialAd();
+
+	bool isRewardedAdLoaded();
+    void showRewardedAd();
 
     GodotYodo1Mas();
     ~GodotYodo1Mas();
