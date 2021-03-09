@@ -15,7 +15,10 @@ public:
 	bool isInitialized();
     void init(const String &appId);
 
-
+	void setGDPR(bool gdpr);
+	void setCCPA(bool ccpa);	
+	void setCOPPA(bool coppa);
+	
 	bool isBannerAdLoaded();
     void showBannerAd();
 	void showBannerAdWithAlign(const int align);

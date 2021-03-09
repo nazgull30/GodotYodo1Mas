@@ -5,6 +5,7 @@
 static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 
+// BEGIN CALLBALS
 @interface GodotYodo1MasBannerAd: NSObject<Yodo1MasBannerAdDelegate>
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event;
@@ -101,7 +102,11 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 @end
 
+// END CALLBALS
 
+
+
+// BEGIN INITIALIZATION
 
 bool initialized;
 	
@@ -116,6 +121,15 @@ bool GodotYodo1Mas::isInitialized() {
 	return initialized;
 }
 
+void GodotYodo1Mas::setGDPR(bool gdpr) {
+	[Yodo1Mas sharedInstance].isGDPRUserConsent = gdpr;
+}
+void GodotYodo1Mas::setCCPA(bool ccpa) {
+	[Yodo1Mas sharedInstance].isCCPADoNotSell = ccpa;
+}	
+void GodotYodo1Mas::setCOPPA(bool coppa) {
+	[Yodo1Mas sharedInstance].isCOPPAAgeRestricted = coppa;
+}
 
 void GodotYodo1Mas::init(const String &appId) {
     NSLog(@"GodotYodo1MasWrapper init");
@@ -133,6 +147,10 @@ void GodotYodo1Mas::init(const String &appId) {
 		NSLog(@"GodotYodo1MasWrapper -> initialize error: %@", error);
     }];
 }
+
+
+// END INITIALIZATION
+
 
 
 // BEGIN BANNER AD
@@ -263,6 +281,10 @@ void GodotYodo1Mas::showRewardedAd() {
 
 void GodotYodo1Mas::_bind_methods() {
     ClassDB::bind_method("init", &GodotYodo1Mas::init);
+
+    ClassDB::bind_method("setGDPR", &GodotYodo1Mas::setGDPR);
+	ClassDB::bind_method("setCCPA", &GodotYodo1Mas::setCCPA);
+	ClassDB::bind_method("setCOPPA", &GodotYodo1Mas::setCOPPA);
 
     ClassDB::bind_method("showBannerAd", &GodotYodo1Mas::showBannerAd);
 	ClassDB::bind_method("showBannerAdWithAlign", &GodotYodo1Mas::showBannerAdWithAlign);
