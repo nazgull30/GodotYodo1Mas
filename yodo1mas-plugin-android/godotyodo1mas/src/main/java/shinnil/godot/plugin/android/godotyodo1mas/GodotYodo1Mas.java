@@ -1,8 +1,6 @@
 package shinnil.godot.plugin.android.godotyodo1mas;
 
 import android.app.Activity;
-import android.os.Bundle;
-import android.provider.Settings;
 import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
@@ -18,24 +16,13 @@ import org.godotengine.godot.Godot;
 import org.godotengine.godot.plugin.GodotPlugin;
 import org.godotengine.godot.plugin.SignalInfo;
 
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Locale;
 import java.util.Set;
 
 
 public class GodotYodo1Mas extends GodotPlugin {
     private Activity activity = null; // The main activity of the game
-
-    private boolean isReal = false; // Store if is real or not
-    private boolean isForChildDirectedTreatment = false; // Store if is children directed treatment desired
-    private boolean isPersonalized = true; // ads are personalized by default, GDPR compliance within the European Economic Area may require you to disable personalization.
-    private String maxAdContentRating = ""; // Store maxAdContentRating ("G", "PG", "T" or "MA")
-    private Bundle extras = null;
-
-    private FrameLayout layout = null; // Store the layout
 
     public GodotYodo1Mas(Godot godot) {
         super(godot);
@@ -44,9 +31,9 @@ public class GodotYodo1Mas extends GodotPlugin {
     // create and add a new layout to Godot
     @Override
     public View onMainCreate(Activity activity) {
-        layout = new FrameLayout(activity);
+        FrameLayout layout = new FrameLayout(activity);
         this.activity = activity;
-        Log.w("godot", "GodotYodo1Mas -> onMainCreate,  activity: " + activity.hashCode());
+        Log.w("godot", "GodotYodo1MasWrapper -> onMainCreate,  activity: " + activity.hashCode());
         return layout;
     }
 
@@ -56,17 +43,43 @@ public class GodotYodo1Mas extends GodotPlugin {
         return "GodotYodo1Mas";
     }
 
+
+//    ClassDB::bind_method("init", &GodotYodo1Mas::init);
+//
+//    ClassDB::bind_method("setGDPR", &GodotYodo1Mas::setGDPR);
+//    ClassDB::bind_method("setCCPA", &GodotYodo1Mas::setCCPA);
+//    ClassDB::bind_method("setCOPPA", &GodotYodo1Mas::setCOPPA);
+//
+//    ClassDB::bind_method("showBannerAd", &GodotYodo1Mas::showBannerAd);
+//    ClassDB::bind_method("showBannerAdWithAlign", &GodotYodo1Mas::showBannerAdWithAlign);
+//    ClassDB::bind_method("showBannerAdWithAlignAndOffset", &GodotYodo1Mas::showBannerAdWithAlignAndOffset);
+//    ClassDB::bind_method("dismissBannerAd" ,&GodotYodo1Mas::dismissBannerAd);
+//
+//    ClassDB::bind_method("isInterstitialAdLoaded", &GodotYodo1Mas::isInterstitialAdLoaded);
+//    ClassDB::bind_method("showInterstitialAd", &GodotYodo1Mas::showInterstitialAd);
+//
+//    ClassDB::bind_method("isRewardedAdLoaded", &GodotYodo1Mas::isRewardedAdLoaded);
+//    ClassDB::bind_method("showRewardedAd", &GodotYodo1Mas::showRewardedAd);
+
     @NonNull
     @Override
     public List<String> getPluginMethods() {
         return Arrays.asList(
                 "init",
-                // banner
-//                "loadBanner", "showBanner", "hideBanner", "getBannerWidth", "getBannerHeight", "resize", "move",
-                // Interstitial
-                "showInterstitial",
-                // Rewarded video
-                "showRewardedVideo");
+                "setGDPR",
+                "setCCPA",
+                "setCOPPA",
+
+                "showBannerAd",
+                "showBannerAdWithAlign",
+                "showBannerAdWithAlignAndOffset",
+                "dismissBannerAd",
+
+                "isInterstitialAdLoaded",
+                "showInterstitialAd",
+
+                "isRewardedAdLoaded",
+                "showRewardedAd");
     }
 
     @NonNull
@@ -74,25 +87,37 @@ public class GodotYodo1Mas extends GodotPlugin {
     public Set<SignalInfo> getPluginSignals() {
         Set<SignalInfo> signals = new ArraySet<>();
 
-        signals.add(new SignalInfo("on_interstitial_loaded"));
-        signals.add(new SignalInfo("on_interstitial_failed_to_load", Integer.class));
-        signals.add(new SignalInfo("on_interstitial_close"));
+        signals.add(new SignalInfo("on_banner_ad_not_loaded"));
+        signals.add(new SignalInfo("on_banner_ad_opened"));
+        signals.add(new SignalInfo("on_banner_ad_closed"));
+        signals.add(new SignalInfo("on_banner_ad_error", Integer.class));
 
+        signals.add(new SignalInfo("on_interstitial_ad_not_loaded"));
+        signals.add(new SignalInfo("on_interstitial_ad_opened"));
+        signals.add(new SignalInfo("on_interstitial_ad_closed"));
+        signals.add(new SignalInfo("on_interstitial_ad_error", Integer.class));
 
-        signals.add(new SignalInfo("on_rewarded_video_ad_left_application"));
-        signals.add(new SignalInfo("on_rewarded_video_ad_closed"));
-        signals.add(new SignalInfo("on_rewarded_video_ad_failed_to_load", Integer.class));
-        signals.add(new SignalInfo("on_rewarded_video_ad_loaded"));
-        signals.add(new SignalInfo("on_rewarded_video_ad_opened"));
-        signals.add(new SignalInfo("on_rewarded", String.class, Integer.class));
-        signals.add(new SignalInfo("on_rewarded_video_started"));
-        signals.add(new SignalInfo("on_rewarded_video_completed"));
-
+        signals.add(new SignalInfo("on_rewarded_ad_not_loaded"));
+        signals.add(new SignalInfo("on_rewarded_ad_opened"));
+        signals.add(new SignalInfo("on_rewarded_ad_closed"));
+        signals.add(new SignalInfo("on_rewarded_ad_error", Integer.class));
         return signals;
     }
 
     /* Init
      * ********************************************************************** */
+
+    public void setGDPR(boolean gdpr) {
+        Yodo1Mas.getInstance().setGDPR(gdpr);
+    }
+
+    public void setCCPA(boolean ccpa) {
+        Yodo1Mas.getInstance().setCCPA(ccpa);
+    }
+
+    public void setCOPPA(boolean coppa) {
+        Yodo1Mas.getInstance().setCOPPA(coppa);
+    }
 
     /**
      * Prepare for work with AdMob
@@ -100,262 +125,202 @@ public class GodotYodo1Mas extends GodotPlugin {
      * @param appId  yodo1 application id
      */
     public void init(final String appId) {
+        initBannerAd();
+        initInterstitialAd();
+        initRewardedAd();
+
         Yodo1Mas.getInstance().init(activity, appId, new Yodo1Mas.InitListener() {
             @Override
             public void onMasInitSuccessful() {
-                Log.w("godot", "GodotYodo1Mas -> init successful");
+                Log.w("godot", "GodotYodo1MasWrapper -> initialize successful");
             }
 
             @Override
             public void onMasInitFailed(@NonNull Yodo1MasError error) {
-                Log.w("godot", "GodotYodo1Mas -> init failed, error: " + error.toString());
-
+                Log.w("godot", "GodotYodo1MasWrapper -> initialize error: " + error.toString());
             }
         });
-
-        initInterstitial();
-        initRewardedVideo();
     }
 
-    private void initInterstitial() {
-        Yodo1Mas.getInstance().setInterstitialListener(new Yodo1Mas.InterstitialListener() {
+    private void initBannerAd() {
+        Yodo1Mas.getInstance().setBannerListener(new Yodo1Mas.BannerListener() {
             @Override
             public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
-                Log.w("godot", "GodotYodo1Mas Interstitial -> onAdOpened");
-                emitSignal("on_interstitial_opened");
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasBannerAd onAdOpened");
+                emitSignal("on_banner_ad_opened");
             }
 
             @Override
             public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
-                Log.w("godot", "GodotYodo1Mas Interstitial -> onAdError " + error.toString());
-                emitSignal("on_interstitial_failed_to_load", error.getCode());
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasBannerAd onAdError: " + error.getCode());
+                emitSignal("on_banner_ad_error", error.getCode());
             }
 
             @Override
             public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
-                Log.w("godot", "GodotYodo1Mas Interstitial -> onAdClosed");
-                emitSignal("on_interstitial_close");
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasBannerAd onAdClosed");
+                emitSignal("on_banner_ad_closed");
             }
         });
     }
 
-    private void initRewardedVideo() {
+    private void initInterstitialAd() {
+        Yodo1Mas.getInstance().setInterstitialListener(new Yodo1Mas.InterstitialListener() {
+            @Override
+            public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasInterstitial onAdOpened");
+                emitSignal("on_interstitial_ad_opened");
+            }
+
+            @Override
+            public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasInterstitial onAdError: " + error.toString());
+                emitSignal("on_interstitial_ad_error", error.getCode());
+            }
+
+            @Override
+            public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasInterstitial onAdClosed");
+                emitSignal("on_interstitial_ad_closed");
+            }
+        });
+    }
+
+    private void initRewardedAd() {
         Yodo1Mas.getInstance().setRewardListener(new Yodo1Mas.RewardListener() {
             @Override
             public void onAdOpened(@NonNull Yodo1MasAdEvent event) {
-                Log.w("godot", "GodotYodo1Mas RewardedVideo -> onAdOpened");
-                emitSignal("on_rewarded_video_ad_opened");
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasRewardAd onAdOpened");
+                emitSignal("on_rewarded_ad_opened");
             }
 
             @Override
             public void onAdvertRewardEarned(@NonNull Yodo1MasAdEvent event) {
-                Log.w("godot", "GodotYodo1Mas RewardedVideo -> onAdvertRewardEarned");
-                emitSignal("on_rewarded_video_completed");
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasRewardAd onAdRewardEarned");
+                emitSignal("on_rewarded_ad_earned");
             }
 
             @Override
             public void onAdError(@NonNull Yodo1MasAdEvent event, @NonNull Yodo1MasError error) {
-                Log.w("godot", "GodotYodo1Mas RewardedVideo -> onAdError, error: " + error.toString());
-                emitSignal("on_rewarded_video_ad_failed_to_load", error.getCode());
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasRewardAd onAdError: " + error.toString());
+                emitSignal("on_rewarded_ad_error", error.getCode());
             }
 
             @Override
             public void onAdClosed(@NonNull Yodo1MasAdEvent event) {
-                Log.w("godot", "GodotYodo1Mas RewardedVideo -> onAdClosed");
-                emitSignal("on_rewarded_video_ad_closed");
+                Log.w("godot", "GodotYodo1MasWrapper -> GodotYodo1MasRewardAd onAdClosed");
+                emitSignal("on_rewarded_ad_closed");
             }
         });
     }
-
-    /* Rewarded Video
-     * ********************************************************************** */
-
-    /**
-     * Show a Rewarded Video
-     */
-    public void showRewardedVideo() {
-        activity.runOnUiThread(new Runnable() {
-            @Override
-            public void run() {
-                boolean isLoaded = Yodo1Mas.getInstance().isBannerAdLoaded();
-                Log.w("godot", "GodotYodo1Mas RewardedVideo -> isLoaded = " + isLoaded);
-                if(isLoaded) {
-                    Yodo1Mas.getInstance().showRewardedAd(activity);
-                }
-            }
-        });
-    }
-
 
     /* Banner
      * ********************************************************************** */
-//
-//    /**
-//     * Load a banner
-//     *
-//     * @param id      AdMod Banner ID
-//     * @param isOnTop To made the banner top or bottom
-//     */
-//    public void loadBanner(final String id, final boolean isOnTop, final String bannerSize) {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (banner != null) banner.remove();
-//                banner = new Banner(id, getAdRequest(), activity, new BannerListener() {
-//                    @Override
-//                    public void onBannerLoaded() {
-//                        emitSignal("on_admob_ad_loaded");
-//                    }
-//
-//                    @Override
-//                    public void onBannerFailedToLoad(int errorCode) {
-//                        emitSignal("on_admob_banner_failed_to_load", errorCode);
-//                    }
-//                }, isOnTop, layout, bannerSize);
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Show the banner
-//     */
-//    public void showBanner() {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (banner != null) {
-//                    banner.show();
-//                }
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Resize the banner
-//     * @param isOnTop To made the banner top or bottom
-//     */
-//    public void move(final boolean isOnTop) {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (banner != null) {
-//                    banner.move(isOnTop);
-//                }
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Resize the banner
-//     */
-//    public void resize() {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (banner != null) {
-//                    banner.resize();
-//                }
-//            }
-//        });
-//    }
-//
-//
-//    /**
-//     * Hide the banner
-//     */
-//    public void hideBanner() {
-//        activity.runOnUiThread(new Runnable() {
-//            @Override
-//            public void run() {
-//                if (banner != null) {
-//                    banner.hide();
-//                }
-//            }
-//        });
-//    }
-//
-//    /**
-//     * Get the banner width
-//     *
-//     * @return int Banner width
-//     */
-//    public int getBannerWidth() {
-//        if (banner != null) {
-//            return banner.getWidth();
-//        }
-//        return 0;
-//    }
-//
-//    /**
-//     * Get the banner height
-//     *
-//     * @return int Banner height
-//     */
-//    public int getBannerHeight() {
-//        if (banner != null) {
-//            return banner.getHeight();
-//        }
-//        return 0;
-//    }
+
+//    bool isBannerAdLoaded();
+//    void showBannerAd();
+//    void showBannerAdWithAlign(const int align);
+//    void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offsetY);
+//    void dismissBannerAd();
+
+
+    public boolean isBannerAdLoaded() {
+        return  Yodo1Mas.getInstance().isBannerAdLoaded();
+    }
+
+    public void showBannerAd() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isBannerAdLoaded = isBannerAdLoaded();
+                Log.w("godot", "GodotYodo1MasWrapper -> showBannerAd, isBannerAdLoaded: " + isBannerAdLoaded);
+                if(!isBannerAdLoaded) {
+                    emitSignal("on_banner_ad_not_loaded");
+                    return;
+                }
+
+                Yodo1Mas.getInstance().showBannerAd(activity);
+            }
+        });
+    }
+
+    public void showBannerAdWithAlign(final int align) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isBannerAdLoaded = isBannerAdLoaded();
+                Log.w("godot", "GodotYodo1MasWrapper -> showBannerAdWithAlign, isBannerAdLoaded: " + isBannerAdLoaded);
+                if(!isBannerAdLoaded) {
+                    emitSignal("on_banner_ad_not_loaded");
+                    return;
+                }
+
+                Yodo1Mas.getInstance().showBannerAd(activity, align);
+            }
+        });
+    }
+
+    public void showBannerAdWithAlignAndOffset(final int align, final int offsetX, final int offsetY) {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isBannerAdLoaded = isBannerAdLoaded();
+                Log.w("godot", "GodotYodo1MasWrapper -> showBannerAdWithAlignAndOffset, isBannerAdLoaded: " + isBannerAdLoaded);
+                if(!isBannerAdLoaded) {
+                    emitSignal("on_banner_ad_not_loaded");
+                    return;
+                }
+
+                Yodo1Mas.getInstance().showBannerAd(activity, align, offsetX, offsetY);
+            }
+        });
+    }
 
     /* Interstitial
      * ********************************************************************** */
 
-    /**
-     * Show the interstitial
-     */
+    public boolean isInterstitialAdLoaded() {
+        return  Yodo1Mas.getInstance().isInterstitialAdLoaded();
+    }
+
     public void showInterstitial() {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {
-                boolean isLoaded = Yodo1Mas.getInstance().isInterstitialAdLoaded();
-                Log.w("godot", "GodotYodo1Mas Interstitial -> isLoaded = " + isLoaded);
-                if(isLoaded) {
-                    Yodo1Mas.getInstance().showInterstitialAd(activity);
+                boolean isInterstitialAdLoaded = isInterstitialAdLoaded();
+                Log.w("godot", "GodotYodo1MasWrapper isInterstitialAdLoaded: " + isInterstitialAdLoaded);
+                if(!isInterstitialAdLoaded) {
+                   emitSignal("on_interstitial_ad_not_loaded");
+                   return;
                 }
+
+                Yodo1Mas.getInstance().showInterstitialAd(activity);
             }
         });
     }
 
-    /* Utils
+
+    /* Rewarded Video
      * ********************************************************************** */
 
-    /**
-     * Get the Device ID for AdMob
-     *
-     * @return String Device ID
-     */
-    private String getAdMobDeviceId() {
-        String android_id = Settings.Secure.getString(activity.getContentResolver(), Settings.Secure.ANDROID_ID);
-        String deviceId = md5(android_id).toUpperCase(Locale.US);
-        return deviceId;
+
+    public boolean isRewardedAdLoaded() {
+        return  Yodo1Mas.getInstance().isBannerAdLoaded();
     }
 
-    /**
-     * Generate MD5 for the deviceID
-     *
-     * @param s The string to generate de MD5
-     * @return String The MD5 generated
-     */
-    private String md5(final String s) {
-        try {
-            // Create MD5 Hash
-            MessageDigest digest = MessageDigest.getInstance("MD5");
-            digest.update(s.getBytes());
-            byte messageDigest[] = digest.digest();
+    public void showRewardedAd() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                boolean isRewardedAdLoaded = isRewardedAdLoaded();
+                Log.w("godot", "GodotYodo1MasWrapper isRewardedAdLoaded: " + isRewardedAdLoaded);
+                if(!isRewardedAdLoaded) {
+                    emitSignal("on_rewarded_ad_not_loaded");
+                    return;
+                }
 
-            // Create Hex String
-            StringBuffer hexString = new StringBuffer();
-            for (int i = 0; i < messageDigest.length; i++) {
-                String h = Integer.toHexString(0xFF & messageDigest[i]);
-                while (h.length() < 2) h = "0" + h;
-                hexString.append(h);
+                Yodo1Mas.getInstance().showRewardedAd(activity);
             }
-            return hexString.toString();
-        } catch (NoSuchAlgorithmException e) {
-            //Logger.logStackTrace(TAG,e);
-        }
-        return "";
+        });
     }
-
 }
