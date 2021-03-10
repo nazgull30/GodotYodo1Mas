@@ -2,6 +2,17 @@ extends Node2D
 
 onready var yodo1mas = $Yodo1Mas
 onready var debug_out = $CanvasLayer/Orange/DebugOut
+onready var coins_label: Label = $CanvasLayer/Orange/Coins_Background/Coins
+
+var coins = 0
+
+func add_coins(add: int):
+	coins += add
+	coins_label.text = str(coins)
+
+
+func _on_PrivacyController_ended():
+	yodo1mas.init()
 
 # buttons callbacks
 	
@@ -28,6 +39,7 @@ func _on_Yodo1Mas_banner_ad_not_loaded():
 	debug_out.text = debug_out.text + "Banner not loaded\n"
 
 func _on_Yodo1Mas_banner_ad_opened():
+	add_coins(5)
 	debug_out.text = debug_out.text + "Banner opened\n"
 
 
@@ -45,6 +57,7 @@ func _on_Yodo1Mas_interstitial_ad_opened():
 	debug_out.text = debug_out.text + "Interstitial opened\n"
 
 func _on_Yodo1Mas_interstitial_ad_closed():
+	add_coins(10)
 	debug_out.text = debug_out.text + "Interstitial closed\n"
 
 func _on_Yodo1Mas_interstitial_ad_error(error_code: int):
@@ -62,3 +75,7 @@ func _on_Yodo1Mas_rewarded_ad_closed():
 
 func _on_Yodo1Mas_rewarded_ad_error(error_code: int):
 	debug_out.text = debug_out.text + "Rewarded video failed to open: Error code " + str(error_code) + "\n"
+
+func _on_Yodo1Mas_rewarded_ad_earned():
+	add_coins(15)
+	debug_out.text = debug_out.text + "Rewarded video earned\n"

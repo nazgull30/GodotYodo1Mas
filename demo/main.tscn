@@ -11,7 +11,7 @@
 [ext_resource path="res://assets/ui/privacy.png" type="Texture" id=9]
 [ext_resource path="res://assets/fonts/ProximaNova-Regular.ttf" type="DynamicFontData" id=10]
 [ext_resource path="res://assets/fonts/ProximaNova-Bold.ttf" type="DynamicFontData" id=11]
-[ext_resource path="res://scripts/privacy_popups.gd" type="Script" id=12]
+[ext_resource path="res://scripts/privacy_controller.gd" type="Script" id=12]
 
 [sub_resource type="StyleBoxFlat" id=1]
 bg_color = Color( 0.2, 0.2, 0.2, 1 )
@@ -31,7 +31,7 @@ __meta__ = {
 "__editor_plugin_screen__": "3D"
 }
 
-[node name="PrivacyPopupsController" type="Node2D" parent="."]
+[node name="PrivacyController" type="Node2D" parent="."]
 script = ExtResource( 12 )
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -180,7 +180,7 @@ rect_pivot_offset = Vector2( 210, 0 )
 texture = ExtResource( 6 )
 expand = true
 
-[node name="Coins - Background" type="ColorRect" parent="CanvasLayer/Orange"]
+[node name="Coins _Background" type="ColorRect" parent="CanvasLayer/Orange"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -194,7 +194,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect - Coin" type="TextureRect" parent="CanvasLayer/Orange/Coins - Background"]
+[node name="TextureRect - Coin" type="TextureRect" parent="CanvasLayer/Orange/Coins _Background"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = -31.0204
@@ -206,7 +206,7 @@ rect_pivot_offset = Vector2( 28, 28 )
 texture = ExtResource( 8 )
 expand = true
 
-[node name="Label - coin value" type="Label" parent="CanvasLayer/Orange/Coins - Background"]
+[node name="Coins" type="Label" parent="CanvasLayer/Orange/Coins _Background"]
 margin_left = 24.1301
 margin_top = 11.3013
 margin_right = 160.13
@@ -233,7 +233,6 @@ __meta__ = {
 }
 
 [node name="PdGdpr" type="PopupDialog" parent="CanvasLayer"]
-visible = true
 anchor_right = 1.0
 anchor_bottom = 1.0
 custom_styles/panel = SubResource( 1 )
@@ -473,15 +472,16 @@ __meta__ = {
 }
 app_id_ios = "BkFDs2l8K4k"
 app_id_android = "emXSs0Md7ZC"
+[connection signal="ended" from="PrivacyController" to="." method="_on_PrivacyController_ended"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnBannerAd" to="." method="_on_BtnBannerAd_pressed"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnInterstitialAd" to="." method="_on_BtnInterstitialAd_pressed"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnRewardedAd" to="." method="_on_RewardedAd_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_Yes" to="PrivacyPopupsController" method="_on_PdGdpr_Yes_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_No" to="PrivacyPopupsController" method="_on_PdGdpr_No_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_Yes" to="PrivacyPopupsController" method="_on_PdCoppa_Yes_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_No" to="PrivacyPopupsController" method="_on_PdCoppa_No_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_Yes" to="PrivacyPopupsController" method="_on_PdCcpa_Yes_pressed"]
-[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_No" to="PrivacyPopupsController" method="_on_PdCcpa_No_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_Yes" to="PrivacyController" method="_on_PdGdpr_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdGdpr/PdGdpr_No" to="PrivacyController" method="_on_PdGdpr_No_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_Yes" to="PrivacyController" method="_on_PdCoppa_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCoppa/PdCoppa_No" to="PrivacyController" method="_on_PdCoppa_No_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_Yes" to="PrivacyController" method="_on_PdCcpa_Yes_pressed"]
+[connection signal="pressed" from="CanvasLayer/PdCcpa/PdCcpa_No" to="PrivacyController" method="_on_PdCcpa_No_pressed"]
 [connection signal="banner_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_closed"]
 [connection signal="banner_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_error" binds= [ 0 ]]
 [connection signal="banner_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_not_loaded"]
@@ -491,6 +491,7 @@ app_id_android = "emXSs0Md7ZC"
 [connection signal="interstitial_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_not_loaded"]
 [connection signal="interstitial_ad_opened" from="Yodo1Mas" to="." method="_on_Yodo1Mas_interstitial_ad_opened"]
 [connection signal="rewarded_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_closed"]
+[connection signal="rewarded_ad_earned" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_earned"]
 [connection signal="rewarded_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_error" binds= [ 0 ]]
 [connection signal="rewarded_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_not_loaded"]
 [connection signal="rewarded_ad_opened" from="Yodo1Mas" to="." method="_on_Yodo1Mas_rewarded_ad_opened"]

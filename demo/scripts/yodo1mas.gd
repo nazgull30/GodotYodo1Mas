@@ -25,6 +25,7 @@ signal interstitial_ad_error()
 signal rewarded_ad_not_loaded()
 signal rewarded_ad_opened()
 signal rewarded_ad_closed()
+signal rewarded_ad_earned()
 signal rewarded_ad_error()
 
 # properties
