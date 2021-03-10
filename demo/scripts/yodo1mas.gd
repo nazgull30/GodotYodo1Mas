@@ -52,7 +52,7 @@ func init() -> bool:
 		_yodo1mas_singleton = Engine.get_singleton("GodotYodo1Mas")
 
 		# check if one signal is already connected
-		if not _yodo1mas_singleton.is_connected("on_banned_ad_not_loaded", self, "_on_bannedAd_not_loaded"):
+		if not _yodo1mas_singleton.is_connected("on_banned_ad_not_loaded", self, "_on_banned_ad_not_loaded"):
 			connect_signals()
 		
 		print("OS.get_name()")
