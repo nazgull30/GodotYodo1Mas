@@ -33,7 +33,6 @@ public class GodotYodo1Mas extends GodotPlugin {
     public View onMainCreate(Activity activity) {
         FrameLayout layout = new FrameLayout(activity);
         this.activity = activity;
-        Log.w("godot", "GodotYodo1MasWrapper -> onMainCreate,  activity: " + activity.hashCode());
         return layout;
     }
 
@@ -42,24 +41,6 @@ public class GodotYodo1Mas extends GodotPlugin {
     public String getPluginName() {
         return "GodotYodo1Mas";
     }
-
-
-//    ClassDB::bind_method("init", &GodotYodo1Mas::init);
-//
-//    ClassDB::bind_method("setGDPR", &GodotYodo1Mas::setGDPR);
-//    ClassDB::bind_method("setCCPA", &GodotYodo1Mas::setCCPA);
-//    ClassDB::bind_method("setCOPPA", &GodotYodo1Mas::setCOPPA);
-//
-//    ClassDB::bind_method("showBannerAd", &GodotYodo1Mas::showBannerAd);
-//    ClassDB::bind_method("showBannerAdWithAlign", &GodotYodo1Mas::showBannerAdWithAlign);
-//    ClassDB::bind_method("showBannerAdWithAlignAndOffset", &GodotYodo1Mas::showBannerAdWithAlignAndOffset);
-//    ClassDB::bind_method("dismissBannerAd" ,&GodotYodo1Mas::dismissBannerAd);
-//
-//    ClassDB::bind_method("isInterstitialAdLoaded", &GodotYodo1Mas::isInterstitialAdLoaded);
-//    ClassDB::bind_method("showInterstitialAd", &GodotYodo1Mas::showInterstitialAd);
-//
-//    ClassDB::bind_method("isRewardedAdLoaded", &GodotYodo1Mas::isRewardedAdLoaded);
-//    ClassDB::bind_method("showRewardedAd", &GodotYodo1Mas::showRewardedAd);
 
     @NonNull
     @Override
@@ -216,13 +197,6 @@ public class GodotYodo1Mas extends GodotPlugin {
 
     /* Banner
      * ********************************************************************** */
-
-//    bool isBannerAdLoaded();
-//    void showBannerAd();
-//    void showBannerAdWithAlign(const int align);
-//    void showBannerAdWithAlignAndOffset(const int align, float offsetX, float offsetY);
-//    void dismissBannerAd();
-
 
     public boolean isBannerAdLoaded() {
         return  Yodo1Mas.getInstance().isBannerAdLoaded();

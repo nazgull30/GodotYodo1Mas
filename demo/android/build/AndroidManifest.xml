@@ -44,7 +44,7 @@
 			
 		<meta-data
 			android:name="com.google.android.gms.ads.APPLICATION_ID"
-			android:value="ca-app-pub-7188592076082444~5567931030"/>			
+			android:value="ca-app-pub-7188592076082444~9384775166"/>			
 
         <activity
             android:name=".GodotApp"
