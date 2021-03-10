@@ -18,41 +18,52 @@ func init():
 		return;	
 		
 func set_gdpr(val: bool):
-	file.set_value("privacy", "gdpr", val)
+	file.set_value("privacy", "gdpr", str(val))
 	file.save(privacyFile)
 	
-func is_gdpr():
-	var gdpr = file.get_value("privacy", "gdpr");
-	if gdpr == null:
+func is_gdpr() -> bool:
+	var gdpr = file.get_value("privacy", "gdpr", "null");
+	if gdpr == "null":
 		return false
 	else:
-		return gdpr;	
+		return to_bool(gdpr);
 	
 func set_coppa(val: bool):
-	file.set_value("privacy", "coppa", val)
+	file.set_value("privacy", "coppa", str(val))
 	file.save(privacyFile)
 
-func is_coppa():
-	var coppa = file.get_value("privacy", "coppa");
-	if coppa == null:
+func is_coppa() -> bool:
+	var coppa = file.get_value("privacy", "coppa", "null");
+	if coppa == "null":
 		return false
 	else:
-		return coppa;	
+		return to_bool(coppa);	
 	
 func set_ccpa(val: bool):
-	file.set_value("privacy", "ccpa", val)
+	file.set_value("privacy", "ccpa", str(val))
 	file.save(privacyFile)	
 
-func is_ccpa():
-	var ccpa = file.get_value("privacy", "ccpa");
-	if ccpa == null:
+func is_ccpa() -> bool:
+	var ccpa = file.get_value("privacy", "ccpa", "null");
+	if ccpa == "null":
 		return false
 	else:
-		return ccpa;		
+		return to_bool(ccpa);		
 
 func is_privacy_stored() -> bool:
-	var gdpr = file.get_value("privacy", "gdpr");
-	var coppa = file.get_value("privacy", "coppa");
-	var ccpa = file.get_value("privacy", "ccpa");
-	print("gdpr: " + str(gdpr) + ", coppa: " + str(coppa) + ", ccpa: " + str(ccpa))
-	return gdpr != null && coppa != null && ccpa != null;
+	var gdpr = file.get_value("privacy", "gdpr", "null");
+	var coppa = file.get_value("privacy", "coppa", "null");
+	var ccpa = file.get_value("privacy", "ccpa", "null");
+	print("gdpr: " + gdpr + ", coppa: " + coppa + ", ccpa: " + ccpa)
+	return gdpr != "null" && coppa != "null" && ccpa != "null";
+	
+
+func to_bool(strVal: String) -> bool:
+	if strVal == "True":
+		return true
+	elif strVal == "False":
+		return false
+	push_error("to_bool, str: " + strVal)	
+	return false
+		
+	
