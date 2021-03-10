@@ -694,6 +694,7 @@ app_id_android = "emXSs0Md7ZC"
 [connection signal="toggled" from="CanvasLayer/PdPrivacy/cbPrivacy_Gdpr" to="CanvasLayer/PdPrivacy" method="_on_cbPrivacy_Gdpr_toggled"]
 [connection signal="toggled" from="CanvasLayer/PdPrivacy/cbPrivacy_Coppa" to="CanvasLayer/PdPrivacy" method="_on_cbPrivacy_Coppa_toggled"]
 [connection signal="toggled" from="CanvasLayer/PdPrivacy/cbPrivacy_Ccpa" to="CanvasLayer/PdPrivacy" method="_on_cbPrivacy_Ccpa_toggled"]
+[connection signal="pressed" from="CanvasLayer/PdPrivacy/BtnPrivacy_Close" to="CanvasLayer/PdPrivacy" method="_on_BtnPrivacy_Close_pressed"]
 [connection signal="banner_ad_closed" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_closed"]
 [connection signal="banner_ad_error" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_error" binds= [ 0 ]]
 [connection signal="banner_ad_not_loaded" from="Yodo1Mas" to="." method="_on_Yodo1Mas_banner_ad_not_loaded"]
