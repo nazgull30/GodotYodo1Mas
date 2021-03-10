@@ -180,7 +180,7 @@ rect_pivot_offset = Vector2( 210, 0 )
 texture = ExtResource( 6 )
 expand = true
 
-[node name="Coins _Background" type="ColorRect" parent="CanvasLayer/Orange"]
+[node name="Coins_Background" type="ColorRect" parent="CanvasLayer/Orange"]
 anchor_left = 1.0
 anchor_top = 1.0
 anchor_right = 1.0
@@ -194,7 +194,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="TextureRect - Coin" type="TextureRect" parent="CanvasLayer/Orange/Coins _Background"]
+[node name="TextureRect - Coin" type="TextureRect" parent="CanvasLayer/Orange/Coins_Background"]
 anchor_top = 0.5
 anchor_bottom = 0.5
 margin_left = -31.0204
@@ -206,7 +206,7 @@ rect_pivot_offset = Vector2( 28, 28 )
 texture = ExtResource( 8 )
 expand = true
 
-[node name="Coins" type="Label" parent="CanvasLayer/Orange/Coins _Background"]
+[node name="Coins" type="Label" parent="CanvasLayer/Orange/Coins_Background"]
 margin_left = 24.1301
 margin_top = 11.3013
 margin_right = 160.13

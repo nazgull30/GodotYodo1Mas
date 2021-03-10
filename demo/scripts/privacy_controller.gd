@@ -9,7 +9,7 @@ onready var ccpaPopup: PopupDialog = $"../CanvasLayer/PdCcpa"
 signal ended()
 
 # Called when the node enters the scene tree for the first time.
-func _ready():
+func init():
 	privacy = Privacy.new()
 	privacy.init()
 	if not privacy.is_privacy_stored():

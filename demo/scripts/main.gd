@@ -1,10 +1,15 @@
 extends Node2D
 
 onready var yodo1mas = $Yodo1Mas
+onready var privacyController = $PrivacyController
 onready var debug_out = $CanvasLayer/Orange/DebugOut
 onready var coins_label: Label = $CanvasLayer/Orange/Coins_Background/Coins
 
 var coins = 0
+
+func _ready():
+	privacyController.init()
+	print(coins_label.text)
 
 func add_coins(add: int):
 	coins += add
