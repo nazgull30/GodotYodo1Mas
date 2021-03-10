@@ -52,7 +52,7 @@ func init() -> bool:
 		_yodo1mas_singleton = Engine.get_singleton("GodotYodo1Mas")
 
 		# check if one signal is already connected
-		if not _yodo1mas_singleton.is_connected("on_bannedAd_not_loaded", self, "_on_bannedAd_not_loaded"):
+		if not _yodo1mas_singleton.is_connected("on_banned_ad_not_loaded", self, "on_banned_ad_not_loaded"):
 			connect_signals()
 			connect_signals()
 		
@@ -71,10 +71,10 @@ func init() -> bool:
 # connect the AdMob Java signals
 func connect_signals() -> void:	
 	
-	_yodo1mas_singleton.connect("on_bannedAd_not_loaded", self, "_on_bannedAd_not_loaded")
-	_yodo1mas_singleton.connect("on_bannerAd_opened", self, "_on_bannerAd_opened")
-	_yodo1mas_singleton.connect("on_bannerAd_closed", self, "_on_bannerAd_closed")
-	_yodo1mas_singleton.connect("on_bannerAd_error", self, "_on_bannerAd_error")
+	_yodo1mas_singleton.connect("on_banned_ad_not_loaded", self, "_on_banned_ad_not_loaded")
+	_yodo1mas_singleton.connect("on_banner_ad_opened", self, "_on_banner_ad_opened")
+	_yodo1mas_singleton.connect("on_banner_ad_closed", self, "_on_banner_ad_closed")
+	_yodo1mas_singleton.connect("on_banner_ad_error", self, "_on_banner_ad_error")
 	
 	_yodo1mas_singleton.connect("on_interstitial_ad_not_loaded", self, "_on_interstitial_ad_not_loaded")
 	_yodo1mas_singleton.connect("on_interstitial_ad_opened", self, "_on_interstitial_ad_opened")
