@@ -2,6 +2,7 @@ extends Node2D
 
 onready var yodo1mas = $Yodo1Mas
 onready var privacyController = $PrivacyController
+onready var privacyPopup: PopupDialog = $CanvasLayer/PdPrivacy
 onready var debug_out = $CanvasLayer/Orange/DebugOut
 onready var coins_label: Label = $CanvasLayer/Orange/Coins_Background/Coins
 
@@ -9,6 +10,7 @@ var coins = 0
 
 func _ready():
 	privacyController.init()
+	privacyPopup.init()
 	print(coins_label.text)
 
 func add_coins(add: int):
@@ -35,7 +37,9 @@ func _on_RewardedAd_pressed() -> void:
 	debug_out.text = debug_out.text + "Rewarded video loaded before shown = " + str(yodo1mas.is_rewarded_ad_loaded()) +"\n"
 	yodo1mas.show_rewarded_ad()
 	debug_out.text = debug_out.text + "Rewarded video loaded after shown = " + str(yodo1mas.is_rewarded_ad_loaded()) + "\n"
-	
+
+func _on_BtnPrivacy_pressed():
+	privacyPopup.popup()	
 	
 	
 # callbacks	from signals
