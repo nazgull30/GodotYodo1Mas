@@ -7,7 +7,6 @@ onready var cbCcpa: CheckButton = $cbPrivacy_Ccpa
 var privacy: Privacy
 
 func init():
-	print("privacy options init")
 	privacy = Privacy.new()
 
 func _on_PdPrivacy_about_to_show():
