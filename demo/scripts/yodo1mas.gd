@@ -84,7 +84,7 @@ func connect_signals() -> void:
 	_yodo1mas_singleton.connect("on_rewarded_ad_not_loaded", self, "_on_rewarded_ad_not_loaded")
 	_yodo1mas_singleton.connect("on_rewarded_ad_opened", self, "_on_rewarded_ad_opened")
 	_yodo1mas_singleton.connect("on_rewarded_ad_closed", self, "_on_rewarded_ad_closed")
-	_yodo1mas_singleton.connect("on_rewarde_ad_earned", self, "_on_rewarded_ad_earned")
+	_yodo1mas_singleton.connect("on_rewarded_ad_earned", self, "_on_rewarded_ad_earned")
 	_yodo1mas_singleton.connect("on_rewarded_ad_error", self, "_on_rewarded_ad_error")
 	
 
@@ -158,15 +158,6 @@ func _on_interstitial_ad_closed() -> void:
 func _on_interstitial_ad_error(error_code:int) -> void:
 	emit_signal("interstitial_ad_error", error_code)
 	
-			
-func _on_interstitial_opened() -> void:
-	print("Godot app -> yodo1mas, _on_interstitial_opened")
-	emit_signal("interstitial_closed")
-	
-func _on_interstitial_closed() -> void:
-	print("Godot app -> yodo1mas, _on_interstitial_closed")
-	emit_signal("interstitial_closed")
-
 
 func _on_rewarded_ad_not_loaded() -> void:
 	emit_signal("rewarded_ad_not_loaded")
@@ -178,6 +169,7 @@ func _on_rewarded_ad_closed() -> void:
 	emit_signal("rewarded_ad_closed")
 	
 func _on_rewarded_ad_earned() -> void:
+	print("Godot app -> yodo1mas, _on_rewarded_ad_earned")
 	emit_signal("rewarded_ad_earned")
 		
 func _on_rewarded_ad_error(error_code:int) -> void:
