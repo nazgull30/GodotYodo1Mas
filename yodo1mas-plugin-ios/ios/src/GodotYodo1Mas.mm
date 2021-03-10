@@ -175,7 +175,7 @@ void GodotYodo1Mas::showBannerAd() {
 	[[Yodo1Mas sharedInstance] showBannerAd];
 }
 
-void showBannerAdWithAlign(const int align) {
+void GodotYodo1Mas::showBannerAdWithAlign(int align) {
     if (!initialized) {
         NSLog(@"GodotYodo1MasWrapper not initialized");
         return;
@@ -191,7 +191,7 @@ void showBannerAdWithAlign(const int align) {
 	[[Yodo1Mas sharedInstance] showBannerAdWithAlign:(Yodo1MasAdBannerAlign)align];
 }
 
-void showBannerAdWithAlignAndOffset(const int align, const int offsetX, const int offsetY){
+void GodotYodo1Mas::showBannerAdWithAlignAndOffset(int align, int offsetX, int offsetY){
     if (!initialized) {
         NSLog(@"GodotYodo1MasWrapper not initialized");
         return;

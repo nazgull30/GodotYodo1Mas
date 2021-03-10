@@ -21,8 +21,8 @@ public:
 	
 	bool isBannerAdLoaded();
     void showBannerAd();
-	void showBannerAdWithAlign(const int align);
-	void showBannerAdWithAlignAndOffset(const int align, const int offsetX, const int offsetY);
+	void showBannerAdWithAlign(int align);
+	void showBannerAdWithAlignAndOffset(int align, int offsetX, int offsetY);
     void dismissBannerAd();
 	
 
