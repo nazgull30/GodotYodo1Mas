@@ -62,7 +62,7 @@ func init() -> bool:
 		elif OS.get_name() == "Android":
 			_yodo1mas_singleton.init(app_id_android)
 		else:
-			print("NOT ")
+			print("NOT Android or iOs")
 			
 		return true
 	return false
