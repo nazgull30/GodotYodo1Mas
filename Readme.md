@@ -19,9 +19,28 @@ First of all, you need download this repository. It consists of 3 folders:
 ### iOS
 1. Clone this repository.
 2. Clone godot repository.
-3. Go to godot repository folder then open modules folder.
-  ![Go to modules folder](/images/go_to_modules.png)
-4.
+3. Go to godot repository folder then open _modules_ folder.
+<img src="/images/go_to_modules.png" width="500">
+4. Create _yodo1mas_ folder. It will contain MAS plugin sources.
+<img src="/images/create_yodo1mas.png" width="500">
+5. Copy all content from _yodo1mas-plugin-ios_ folder to  _yodo1mas_ folder.
+<img src="/images/ios_plugin_copy.png" width="500">
 
+Now we need to compile a library for our future xCode probject.
+[Here](https://docs.godotengine.org/en/stable/development/compiling/compiling_for_ios.html) is an official documentation about plugin compilation in godot.
+1. Open **Terminal** program on your Mac.
+2. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
+  - **cd**. This command navigates you to your home folder.
+  - **cd Downloads/godot-3.2.3-stable**. Navigates to godot folder.
+  - **ls**. Display all files in godot folder.
+<img src="/images/terminal_navigates_to_godot.png" width="500">
+3. Compile the engine for iOs platform. Type commands in the terminal
 
-Copy and paste the _yodo1mas-plugin-ios_ directory inside the "modules" directory on the Godot source.
+  - scons p=iphone tools=no target=release arch=arm
+  - scons p=iphone tools=no target=release arch=arm64
+  - lipo -create bin/libgodot.iphone.opt.arm.a bin/libgodot.iphone.opt.arm64.a -output bin/libgodot.iphone.release.fat.a
+
+You can compile only for arm or arm64 version. Just use one command. 
+Compiled ios library will end up in bin folder.
+<img src="/images/compiled_ios_lib.png" width="500">
+
