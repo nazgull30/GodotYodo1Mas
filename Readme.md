@@ -21,12 +21,14 @@ First of all, you need download this repository. It consists of 3 folders:
 2. Clone godot repository.
 3. Go to godot repository folder then open _modules_ folder.
 <img src="/images/go_to_modules.png" width="500">
+
 4. Create _yodo1mas_ folder. It will contain MAS plugin sources.
 <img src="/images/create_yodo1mas.png" width="500">
+
 5. Copy all content from _yodo1mas-plugin-ios_ folder to  _yodo1mas_ folder.
 <img src="/images/ios_plugin_copy.png" width="500">
 
-Now we need to compile a library for our future xCode project.
+Now we need to compile a library for our future Xcode project.
 [Here](https://docs.godotengine.org/en/stable/development/compiling/compiling_for_ios.html) is an official documentation about plugin compilation in godot.
 1. Open **Terminal** program on your Mac.
 2. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
@@ -36,12 +38,16 @@ Now we need to compile a library for our future xCode project.
 <img src="/images/terminal_navigates_to_godot.png" width="500">
 
 3. Compile the engine for iOs platform. 
-You need a program **scons** to be installed. The easiest way you do it through Homebrew. Link [Here](https://formulae.brew.sh/formula/scons). 
+You need a program **scons** to be installed. The easiest way you do it through Homebrew. 
+Homebrew installation is [here](https://brew.sh).
+cscons installation via homebrew is [here](https://formulae.brew.sh/formula/scons). 
 After that type commands in the terminal:
 
-  - scons p=iphone tools=no target=release arch=arm
-  - scons p=iphone tools=no target=release arch=arm64
-  - lipo -create bin/libgodot.iphone.opt.arm.a bin/libgodot.iphone.opt.arm64.a -output bin/libgodot.iphone.release.fat.a
+```
+scons p=iphone tools=no target=release arch=arm
+scons p=iphone tools=no target=release arch=arm64
+lipo -create bin/libgodot.iphone.opt.arm.a bin/libgodot.iphone.opt.arm64.a -output bin/libgodot.iphone.release.fat.a
+```
 
 You can compile only for arm or arm64 version. Just use one command. 
 Compiled ios library will end up in bin folder.
@@ -54,16 +60,16 @@ Below we provide an example how to compile demo project on iOs. You will be able
 <img src="/images/export_ios.png" width="500">
 After that you can use Export PCK/Zip to replace only *.pck file.*
 
-2. Here is a directory with xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
+2. Here is a directory with Xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
 You already compiled a required library before.
 <img src="/images/godot_ios_libraries.png" width="500">
 
-Rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot xCode project.
+Rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot Xcode project.
 
-Now library  _GodotYodo1Mas.a_ in xCode project contains MAS SDK wrapper.
+Now library  _GodotYodo1Mas.a_ in Xcode project contains MAS SDK wrapper.
 
-3. Use cocoapods to add all MAS SDKs in your xCode project. Create Podfile in xCode project via terminal command **touch Podfile**. 
-Do not forget to navigate into xcode folder with command _cd_ .
+3. Use cocoapods to add all MAS SDKs in your Xcode project. Create Podfile in Xcode project via terminal command **touch Podfile**. 
+Do not forget to navigate into Xcode folder with command _cd_ .
 4. Open the project's Podfile file and add the following code to the target of the application:
 ```
 source 'https://github.com/Yodo1Games/MAS-Spec.git'
@@ -91,10 +97,10 @@ You can specify project name, platform and many other options in this file. Take
 
 5. Execute the following command in Terminal: **pod install --repo-update**. This command will download all required Yodo1 MAS libraries and create xCode workspace file.
 <img src="/images/cocoapods_install.png" width="500">
-xCode project structure after pods installation.
+Xcode project structure after pods installation.
 <img src="/images/xcode_files.png" width="500">
 
-Now we need to set up xCode project. 
+Now we need to set up Xcode project. 
 1. Open **GodotYodo1Mas.xcworkspace** file.
 2. Open **open_info_plist** file in text editor.
 <img src="/images/open_info_plist.png" width="500">
@@ -383,7 +389,7 @@ In the popup 'Would you like to configure an Objective-C bridging header?' choos
 
 
 #### !!IMPORTANT!!
-After you prepare xCode project in Godot editor use option **Export PCK/ZIP** and replace pck file.
+After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** and replace pck file.
 <img src="/images/godot_pck.png" width="500">
 
 
