@@ -26,7 +26,7 @@ First of all, you need download this repository. It consists of 3 folders:
 5. Copy all content from _yodo1mas-plugin-ios_ folder to  _yodo1mas_ folder.
 <img src="/images/ios_plugin_copy.png" width="500">
 
-Now we need to compile a library for our future xCode probject.
+Now we need to compile a library for our future xCode project.
 [Here](https://docs.godotengine.org/en/stable/development/compiling/compiling_for_ios.html) is an official documentation about plugin compilation in godot.
 1. Open **Terminal** program on your Mac.
 2. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
@@ -43,4 +43,20 @@ Now we need to compile a library for our future xCode probject.
 You can compile only for arm or arm64 version. Just use one command. 
 Compiled ios library will end up in bin folder.
 <img src="/images/compiled_ios_lib.png" width="500">
+
+For iOs platform you need only script yodo1mas.gd from our demo project. It is wrapper for all MAS functions.
+Below we provide an example how to compile demo project on iOs. You will be able to compile your poject in the same way.
+
+1. Export the project for iOs platform. 
+<img src="/images/export_ios.png" width="500">
+After that you can use Export PCK/Zip to replace only *.pck file.*
+2. Here is a directory with xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
+You already compiled a required library before.
+<img src="/images/godot_ios_libraries.png" width="500">
+Now rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot xCode project.
+Now library  _GodotYodo1Mas.a_ in xCode project contains MAS SDK wrapper.
+3. Use cocoapods to add all MAS SDKs in your xCode project. Create
+
+
+
 
