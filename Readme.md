@@ -34,7 +34,10 @@ Now we need to compile a library for our future xCode project.
   - **cd Downloads/godot-3.2.3-stable**. Navigates to godot folder.
   - **ls**. Display all files in godot folder.
 <img src="/images/terminal_navigates_to_godot.png" width="500">
-3. Compile the engine for iOs platform. Type commands in the terminal
+
+3. Compile the engine for iOs platform. 
+You need a program **scons** to be installed. The easiest way you do it through Homebrew. Link [Here](https://formulae.brew.sh/formula/scons). 
+After that type commands in the terminal:
 
   - scons p=iphone tools=no target=release arch=arm
   - scons p=iphone tools=no target=release arch=arm64
