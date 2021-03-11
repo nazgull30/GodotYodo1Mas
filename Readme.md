@@ -375,3 +375,22 @@ Games for users running iOS 14 or later need to include the network ID of each a
 7. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
 In the popup 'Would you like to configure an Objective-C bridging header?' choose **Create Bridging Header**
 <img src="/images/create_bridging_header.png" width="500">
+
+8. You can compile a build :)
+
+
+#### !!IMPORTANT!!
+After you prepare xCode project in Godot editor use option **Export PCK/ZIP** and replace pck file.
+<img src="/images/godot_pck.png" width="500">
+
+
+
+
+Godot manual
+----------
+
+### Banner integration
+
+
+### Banner integration
+
