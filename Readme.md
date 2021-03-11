@@ -53,12 +53,13 @@ You can compile only for arm or arm64 version. Just use one command.
 Compiled ios library will end up in bin folder.
 <img src="/images/compiled_ios_lib.png" width="500">
 
+
+----------
 For iOs platform you need only script yodo1mas.gd from our demo project. It is wrapper for all MAS functions.
 Below we provide an example how to compile demo project on iOs. You will be able to compile your poject in the same way.
 
-1. Export the project for iOs platform. 
+1. Export the project for iOs platform. Xcode project will be created.
 <img src="/images/export_ios.png" width="500">
-After that you can use Export PCK/Zip to replace only *.pck file.*
 
 2. Here is a directory with Xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
 You already compiled a required library before.
