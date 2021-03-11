@@ -20,7 +20,8 @@ First of all, you need download this repository. It consists of 3 folders:
 1. Clone this repository.
 2. Clone godot repository.
 3. Go to godot repository folder then open modules folder.
-![Searching AdMob node](https://drive.google.com/file/d/1M0TvMEi4KwVmvqYgtjxe5BpsDSfg4BJ4)
+  ![Go to modules folder](/images/go_to_modules.png)
+4.
 
 
 Copy and paste the _yodo1mas-plugin-ios_ directory inside the "modules" directory on the Godot source.
