@@ -102,7 +102,7 @@ Xcode project structure after pods installation.
 
 Now we need to set up Xcode project. 
 1. Open **GodotYodo1Mas.xcworkspace** file.
-2. Open **open_info_plist** file in text editor.
+2. Open **GodotYodo1Mas-Info.plist** file in text editor.
 <img src="/images/open_info_plist.png" width="500">
 
 3.Add AppLovin SDK Key:
@@ -377,6 +377,8 @@ Games for users running iOS 14 or later need to include the network ID of each a
       </dict>
     </array>
 ```
+
+Save and close **GodotYodo1Mas-Info.plist** file.
 
 8. Set up build architectures. For examples, armv7. Also, set iOs deployement target to 10.0. 
 <img src="/images/xcode_architectures.png" width="500">
