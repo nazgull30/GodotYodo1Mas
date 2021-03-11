@@ -50,13 +50,45 @@ Below we provide an example how to compile demo project on iOs. You will be able
 1. Export the project for iOs platform. 
 <img src="/images/export_ios.png" width="500">
 After that you can use Export PCK/Zip to replace only *.pck file.*
+
 2. Here is a directory with xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
 You already compiled a required library before.
 <img src="/images/godot_ios_libraries.png" width="500">
-Now rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot xCode project.
+
+Rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot xCode project.
+
 Now library  _GodotYodo1Mas.a_ in xCode project contains MAS SDK wrapper.
-3. Use cocoapods to add all MAS SDKs in your xCode project. Create
 
+3. Use cocoapods to add all MAS SDKs in your xCode project. Create Podfile in xCode project via terminal command **touch Podfile**. 
+Do not forget to navigate into xcode folder with command _cd_ .
+4. Open the project's Podfile file and add the following code to the target of the application:
+```
+source 'https://github.com/Yodo1Games/MAS-Spec.git'
+source 'https://github.com/Yodo1Games/Yodo1Spec.git'
+source 'https://github.com/CocoaPods/Specs.git'
+platform :ios, '10.0'
 
+project 'GodotYodo1Mas.xcodeproj'
 
+target 'GodotYodo1Mas' do
+   pod 'FBSDKCoreKit'
+   pod 'Yodo1MasStandard', '~> 4.0.1.0'
+end
+
+post_install do |installer|
+    installer.pods_project.targets.each do |target|
+        target.build_configurations.each do |config|
+            config.build_settings['ENABLE_BITCODE'] = 'NO'
+        end
+    end
+end
+
+```
+You can specify project name, platform and many other options in this file. Take a look at [cocoapods documentation](https://guides.cocoapods.org) for details.
+
+5. Execute the following command in Terminal: **pod install --repo-update**. This command will download all required Yodo1 MAS libraries and create xCode workspace file.
+<img src="/images/cocoapods_install.png" width="500">
+xCode project structure after pods installation.
+<img src="/images/xcode_files.png" width="500">
+8. Open **GodotYodo1Mas.xcworkspace** file in xCode.
 
