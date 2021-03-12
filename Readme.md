@@ -402,7 +402,65 @@ Godot manual
 ----------
 
 ### Banner integration
+1. Set up the banner signals
+<img src="/images/banner_signals.png" width="500">
+
+2. Check the loading status of banners
+
+```
+var banner_loaded = yodo1mas.is_banner_ad_loaded()
+```
+
+3. Show banner ad
+
+Use the show method to display a banner:
+```
+yodo1mas.show_banner_ad()
+```
+
+The method uses default aligment parameters BANNER_TOP | BANNER_HORIZONTAL_CENTER and a default offset of (X: 0,Y: 0):
+```
+yodo1mas.show_banner_ad_with_align(yodo1mas.BannerAlign.BANNER_RIGT | yodo1mas.BannerAlign.BANNER_BOTTOM)
+```
+
+You can  customize the banner alignment and offset.
+```
+yodo1mas.show_banner_ad_with_align_and_offset(yodo1mas.BannerAlign.BANNER_RIGT | yodo1mas.BannerAlign.BANNER_BOTTOM, Vector2(10,10))
+```
 
 
-### Banner integration
+4. Dismiss banner ad
 
+```
+yodo1mas.dismiss_banner_ad()
+```
+
+### Interstitial integration
+1. Set up the interstitial signals
+<img src="/images/interstitial_signals.png" width="500">
+
+2. Check the loading status of interstitials
+
+```
+var is_interstitial_loaded = yodo1mas.is_interstitial_ad_loaded()
+```
+
+3. Show interstitial ad
+```
+yodo1mas.show_interstitial_ad()
+```
+
+### Rewarded ad integration
+1. Set up the rewarded video signals
+<img src="/images/video_signals.png" width="500">
+
+2. Check the loading status of rewarded video
+
+```
+var is_rewarded_ad_loaded = yodo1mas.is_rewarded_ad_loaded()
+```
+
+3. Show rewarded video
+```
+yodo1mas.show_rewarded_ad()
+```
