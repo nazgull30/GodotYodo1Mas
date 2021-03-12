@@ -395,14 +395,138 @@ In the popup 'Would you like to configure an Objective-C bridging header?' choos
 After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** and replace pck file.
 <img src="/images/godot_pck.png" width="500">
 
+### Android
 
+## Setup
+
+1. Configure, install  and enable the "Android Custom Template" for your project, just follow the [official documentation](https://docs.godotengine.org/en/stable/getting_started/workflow/export/android_custom_build.html);
+2. Go to the [release tab](https://https://github.com/nazgull30/GodotYodo1Mas/releases), choose a version and download the respective ```GodotYodo1Mas.x.x.x.zip``` package;
+3. Extract the content of the ```yodo1mas-plugin``` directory (```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar``` from the zip package) inside the ```res://android/plugins``` directory on your Godot project.
+4. Put fir ```yodo1mas.gd``` into Godot project.
+5. On the Project -> Export... -> Android -> Options -> 
+    - Permissions: check the permissions for _Access Network State_ and _Internet_
+    - Custom Template: check the _Use Custom Build_
+    - Plugins: check the _Godot Yodo1 Mas_ (this plugin)
+6. Add AdMob App ID
+    - Add your AdMob App ID to your app's ```res//android/build/AndroidManifest.xml``` file by adding the <meta-data> tag. 
+    - You can find your App ID in the MAS dashboard.
+    - Please replace android:value with your own AdMob App ID
+
+```
+<manifest>
+	<application>
+	<!-- Sample AdMob App ID: ca-app-pub-3940256099942544~3347511713 -->
+	<meta-data
+		android:name="com.google.android.gms.ads.APPLICATION_ID"
+		android:value="YOUR_ADMOB_APP_ID"/>
+	</application>
+</manifest>
+```
+
+7. Change android label with attribute **tools:replace**. Example:
+
+```
+ <application tools:replace="android:label" android:label="GodotYodo1Mas"
+```
+
+9. Edit **build.gradle** file. You need to add repositories and activate multiDexEnabled.
+
+```
+maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
+maven { url "https://dl.bintray.com/ironsource-mobile/android-adapters" }
+maven { url "https://dl.bintray.com/yodo1/MAS-Android" }
+maven { url "https://dl.bintray.com/yodo1/android-sdk" }
+```
+
+```
+	multiDexEnabled true
+```
+
+Take a look at build.gradle file in the demo project.
+
+10. You can export Android project. Apk will be created.
+
+
+**NOTE**: everytime you install a new version of the Android Build Template this step must be done again, as the ```AndroidManifest.xml``` file will be overriden.
+
+
+## Compiling the Plugin (optional)
+If you want to compile the plugin by yourself, it's very easy:
+1. clone this repository;
+2. checkout the desired version;
+3. download the AAR library for Android plugin from the official Godot website;
+4. copy the downloaded AAR file into the `yodo1mas-plugin-android/godot-lib.release/` directory and rename it to `godot-lib.release.aar`;
+5. using command line go to the `yodo1mas-plugin-android/` directory;
+6. run `gradlew build`.
+
+Also you can make build from android studio.
+
+If everything goes fine, you'll find the `.aar` files at `yodo1mas-plugin-android/godotadmob/build/outputs/aar/`.
 
 
 Godot manual
 ----------
 
 ### Banner integration
+1. Set up the banner signals
+<img src="/images/banner_signals.png" width="500">
+
+2. Check the loading status of banners
+
+```
+var banner_loaded = yodo1mas.is_banner_ad_loaded()
+```
+
+3. Show banner ad
+
+Use the show method to display a banner:
+```
+yodo1mas.show_banner_ad()
+```
+
+The method uses default aligment parameters BANNER_TOP | BANNER_HORIZONTAL_CENTER and a default offset of (X: 0,Y: 0):
+```
+yodo1mas.show_banner_ad_with_align(yodo1mas.BannerAlign.BANNER_RIGT | yodo1mas.BannerAlign.BANNER_BOTTOM)
+```
+
+You can  customize the banner alignment and offset.
+```
+yodo1mas.show_banner_ad_with_align_and_offset(yodo1mas.BannerAlign.BANNER_RIGT | yodo1mas.BannerAlign.BANNER_BOTTOM, Vector2(10,10))
+```
 
 
-### Banner integration
+4. Dismiss banner ad
 
+```
+yodo1mas.dismiss_banner_ad()
+```
+
+### Interstitial integration
+1. Set up the interstitial signals
+<img src="/images/interstitial_signals.png" width="500">
+
+2. Check the loading status of interstitials
+
+```
+var is_interstitial_loaded = yodo1mas.is_interstitial_ad_loaded()
+```
+
+3. Show interstitial ad
+```
+yodo1mas.show_interstitial_ad()
+```
+
+### Rewarded ad integration
+1. Set up the rewarded video signals
+<img src="/images/video_signals.png" width="500">
+
+2. Check the loading status of rewarded video
+
+```
+var is_rewarded_ad_loaded = yodo1mas.is_rewarded_ad_loaded()
+```
+
+3. Show rewarded video
+```
+yodo1mas.show_rewarded_ad()
+```
