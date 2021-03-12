@@ -70,7 +70,7 @@ func init() -> bool:
 # connect the AdMob Java signals
 func connect_signals() -> void:	
 	
-	_yodo1mas_singleton.connect("on_banned_ad_not_loaded", self, "_on_banned_ad_not_loaded")
+	_yodo1mas_singleton.connect("on_banner_ad_not_loaded", self, "_on_banner_ad_not_loaded")
 	_yodo1mas_singleton.connect("on_banner_ad_opened", self, "_on_banner_ad_opened")
 	_yodo1mas_singleton.connect("on_banner_ad_closed", self, "_on_banner_ad_closed")
 	_yodo1mas_singleton.connect("on_banner_ad_error", self, "_on_banner_ad_error")
