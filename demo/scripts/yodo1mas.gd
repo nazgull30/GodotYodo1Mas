@@ -5,7 +5,7 @@ class_name Yodo1Mas
 enum BannerAlign {
 	BANNER_LEFT = 1, 
 	BANNER_HORIZONTAL_CENTER = 1 << 1, # 2
-	BANNER_RIGT = 1 << 2, # 4
+	BANNER_RIGHT = 1 << 2, # 4
 	BANNER_TOP = 1 << 3, # 8
 	BANNER_VERTICAL_CENTER = 1 << 4, # 16
 	BANNER_BOTTOM = 1 << 5 # 32

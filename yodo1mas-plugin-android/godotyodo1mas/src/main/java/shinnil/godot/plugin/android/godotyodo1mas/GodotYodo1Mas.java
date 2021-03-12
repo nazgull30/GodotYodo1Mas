@@ -81,6 +81,7 @@ public class GodotYodo1Mas extends GodotPlugin {
         signals.add(new SignalInfo("on_rewarded_ad_not_loaded"));
         signals.add(new SignalInfo("on_rewarded_ad_opened"));
         signals.add(new SignalInfo("on_rewarded_ad_closed"));
+        signals.add(new SignalInfo("on_rewarded_ad_earned"));
         signals.add(new SignalInfo("on_rewarded_ad_error", Integer.class));
         return signals;
     }
