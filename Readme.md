@@ -381,7 +381,7 @@ Games for users running iOS 14 or later need to include the network ID of each a
 
 Save and close **GodotYodo1Mas-Info.plist** file.
 
-8. Set up build architectures. For examples, armv7. Also, set iOs deployement target to 10.0. 
+8. Set up build excluded architectures. For example, you can exclude armv7 if you did not compile for it. Also, set iOs deployement target to 10.0. 
 <img src="/images/xcode_architectures.png" width="500">
 
 7. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
