@@ -51,6 +51,7 @@ public class GodotYodo1Mas extends GodotPlugin {
                 "setCCPA",
                 "setCOPPA",
 
+                "isBannerAdLoaded",
                 "showBannerAd",
                 "showBannerAdWithAlign",
                 "showBannerAdWithAlignAndOffset",
@@ -251,6 +252,15 @@ public class GodotYodo1Mas extends GodotPlugin {
         });
     }
 
+    public void dismissBannerAd() {
+        activity.runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                Yodo1Mas.getInstance().dismissBannerAd();
+            }
+        });
+    }
+
     /* Interstitial
      * ********************************************************************** */
 
@@ -258,7 +268,7 @@ public class GodotYodo1Mas extends GodotPlugin {
         return  Yodo1Mas.getInstance().isInterstitialAdLoaded();
     }
 
-    public void showInterstitial() {
+    public void showInterstitialAd() {
         activity.runOnUiThread(new Runnable() {
             @Override
             public void run() {

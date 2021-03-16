@@ -97,7 +97,7 @@ func is_banner_ad_loaded() -> bool:
 		
 func show_banner_ad() -> void:
 	if(_yodo1mas_singleton != null):
-		_yodo1mas_singleton.showBanner()
+		_yodo1mas_singleton.showBannerAd()
 		
 func show_banner_ad_with_align(align: int) -> void:
 	if(_yodo1mas_singleton != null):
@@ -105,7 +105,7 @@ func show_banner_ad_with_align(align: int) -> void:
 
 func show_banner_ad_with_align_and_offset(align: int, offset: Vector2) -> void:
 	if(_yodo1mas_singleton != null):
-		_yodo1mas_singleton.showBannerAdWithAlign(align, offset.x, offset.y)		
+		_yodo1mas_singleton.showBannerAdWithAlignAndOffset(align, offset.x, offset.y)		
 		
 		
 func dismiss_banner_ad() -> void:
