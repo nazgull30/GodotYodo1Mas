@@ -397,17 +397,16 @@ After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** an
 
 ### Android
 
-## Setup
+## Setup new project
 
 1. Configure, install  and enable the "Android Custom Template" for your project, just follow the [official documentation](https://docs.godotengine.org/en/stable/getting_started/workflow/export/android_custom_build.html);
-2. Go to the [release tab](https://https://github.com/nazgull30/GodotYodo1Mas/releases), choose a version and download the respective ```GodotYodo1Mas.x.x.x.zip``` package;
-3. Extract the content of the ```yodo1mas-plugin``` directory (```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar``` from the zip package) inside the ```res://android/plugins``` directory on your Godot project.
-4. Put fir ```yodo1mas.gd``` into Godot project.
-5. On the Project -> Export... -> Android -> Options -> 
+2. Copy two files ```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar``` from demo/android/plugins to your Godot project. You have to put them in the path ```res://android/plugins```.
+3. Put file ```demo/scripts/yodo1mas.gd``` into your Godot project.
+4. On the Project -> Export... -> Android -> Options -> 
     - Permissions: check the permissions for _Access Network State_ and _Internet_
     - Custom Template: check the _Use Custom Build_
     - Plugins: check the _Godot Yodo1 Mas_ (this plugin)
-6. Add AdMob App ID
+5. Add AdMob App ID
     - Add your AdMob App ID to your app's ```res//android/build/AndroidManifest.xml``` file by adding the <meta-data> tag. 
     - You can find your App ID in the MAS dashboard.
     - Please replace android:value with your own AdMob App ID
@@ -423,13 +422,13 @@ After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** an
 </manifest>
 ```
 
-7. Change android label with attribute **tools:replace**. Example:
+6. Change android label with attribute **tools:replace**. Example:
 
 ```
  <application tools:replace="android:label" android:label="GodotYodo1Mas"
 ```
 
-9. Edit **build.gradle** file. You need to add repositories and activate multiDexEnabled.
+7. Edit **build.gradle** file. You need to add repositories and activate multiDexEnabled.
 
 ```
 maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
@@ -444,7 +443,7 @@ maven { url "https://dl.bintray.com/yodo1/android-sdk" }
 
 Take a look at build.gradle file in the demo project.
 
-10. You can export Android project. Apk will be created.
+8. You can export Android project. Apk will be created.
 
 
 **NOTE**: everytime you install a new version of the Android Build Template this step must be done again, as the ```AndroidManifest.xml``` file will be overriden.
