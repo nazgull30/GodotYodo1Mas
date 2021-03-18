@@ -9,13 +9,19 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "Privacy",
+"language": "GDScript",
+"path": "res://scripts/privacy.gd"
+}, {
 "base": "Node",
 "class": "Yodo1Mas",
 "language": "GDScript",
-"path": "res://admob-lib/yodo1mas.gd"
+"path": "res://scripts/yodo1mas.gd"
 } ]
 _global_script_class_icons={
-"Yodo1Mas": "res://admob-lib/icon.png"
+"Privacy": "",
+"Yodo1Mas": ""
 }
 
 [application]

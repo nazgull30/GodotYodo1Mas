@@ -1,0 +1,3 @@
+rootProject.name='GodotYodo1Mas'
+include ':app', ':godot-lib.release'
+include ':godotyodo1mas'

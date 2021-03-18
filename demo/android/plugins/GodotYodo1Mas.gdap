@@ -2,8 +2,8 @@
 
 name="GodotYodo1Mas"
 binary_type="local"
-binary="GodotYodo1Mas.1.0.0.debug.aar"
+binary="GodotYodo1Mas.1.0.0.release.aar"
 
 [dependencies]
 
-remote=["com.yodo1.mas:standard:4.0.1.0"]
+remote=["com.yodo1.mas:standard:4.0.1.1"]
