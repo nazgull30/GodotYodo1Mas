@@ -471,6 +471,10 @@ If everything goes fine, you'll find the `.aar` files at `yodo1mas-plugin-androi
 
 Godot manual
 ----------
+### Set App Ids.
+<img src="/images/set_app_ids.png" width="500">
+You can find your App IDs in the MAS dashboard.
+
 
 ### Banner integration
 1. Set up the banner signals
