@@ -68,6 +68,7 @@ Below we provide an example how to compile demo project on iOs. You will be able
 
 2. Here is a directory with Xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
 You already compiled a required library before.
+Also,in the Yodo1Godot_release_files_1.*.* archive we provide GodotYodo1Mas.a for x86, armv7 ad x86+armv7.
 <img src="/images/godot_ios_libraries.png" width="500">
 
 Rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot Xcode project.
@@ -145,7 +146,8 @@ iOS 14 requires publishers to obtain permission to track user devices across app
 ```
 
 7. Advertising Network ID
-Games for users running iOS 14 or later need to include the network ID of each advertising platform in the attribute list file
+Games for users running iOS 14 or later need to include the network ID of each advertising platform in the GodotYodo1Mas-Info.plist file.
+There is an example of this file in the Yodo1Godot_release_files_1.*.* archive.
 
 ```
     <key>SKAdNetworkItems</key>
@@ -406,7 +408,7 @@ After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** an
 ## Setup new project
 
 1. Configure, install  and enable the "Android Custom Template" for your project, just follow the [official documentation](https://docs.godotengine.org/en/stable/getting_started/workflow/export/android_custom_build.html);
-2. Copy folder ```plugins``` from release archive  to your Godot project. You have to put them in the path ```res://android```.
+2. Copy folder ```plugins``` from Yodo1Godot_release_files_1.*.* archive  to your Godot project. You have to put them in the path ```res://android```.
 This ```plugins``` folder contains two files ```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar```.
 4. Put file ```yodo1mas.gd``` from release achive into your Godot project.
 5. Copy files ```AndroidManifest.xml```, ```config.gradle```, ```build.gradle``` and put them in the path ```res://android```.
