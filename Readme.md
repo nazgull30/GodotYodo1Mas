@@ -474,6 +474,7 @@ If everything goes fine, you'll find the `.aar` files at `yodo1mas-plugin-androi
 Godot manual
 ----------
 ### Set App Ids.
+ create Yodo1Mas node.
 <img src="/images/set_app_ids.png" width="500">
 You can find your App IDs in the MAS dashboard.
 
@@ -515,6 +516,7 @@ yodo1mas.dismiss_banner_ad()
 ### Interstitial integration
 1. Set up the interstitial signals
 <img src="/images/interstitial_signals.png" width="500">
+
 
 2. Check the loading status of interstitials
 
