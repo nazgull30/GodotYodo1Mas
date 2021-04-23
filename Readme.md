@@ -90,7 +90,7 @@ project 'GodotYodo1Mas.xcodeproj'
 
 target 'GodotYodo1Mas' do
    pod 'FBSDKCoreKit'
-   pod 'Yodo1MasStandard', '~> 4.0.5' # <-- new version here
+   pod 'Yodo1MasStandard', '~> 4.0.4' # <-- new version here
 end
 
 post_install do |installer|
