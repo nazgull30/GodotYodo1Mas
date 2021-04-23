@@ -36,6 +36,7 @@ If you have other third party modules then you have to recompile an entire godot
 Now we need to compile a library for our future Xcode project.
 [Here](https://docs.godotengine.org/en/stable/development/compiling/compiling_for_ios.html) is an official documentation about plugin compilation in godot.
 6. Open **Terminal** program on your Mac.
+
 7. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
   - **cd**. This command navigates you to your home folder.
   - **cd Downloads/godot-3.2.3-stable**. Navigates to godot folder.
@@ -78,7 +79,7 @@ You can find thi slibrary in the release 1.0.0 archive.
 
 3. Use cocoapods to add all MAS SDKs in your Xcode project. Create Podfile in Xcode project via terminal command **touch Podfile**. 
 Do not forget to navigate into Xcode folder with command _cd_ .
-4. Open the project's Podfile file and add the following code to the target of the application:
+4. Open the project's Podfile file and add the following code to the target of the application. Yodo1MasStandard shoould be
 ```
 source 'https://github.com/Yodo1Games/MAS-Spec.git'
 source 'https://github.com/Yodo1Games/Yodo1Spec.git'
@@ -89,7 +90,7 @@ project 'GodotYodo1Mas.xcodeproj'
 
 target 'GodotYodo1Mas' do
    pod 'FBSDKCoreKit'
-   pod 'Yodo1MasStandard', '~> 4.0.1.0'
+   pod 'Yodo1MasStandard', '~> 4.0.5' # <-- new version here
 end
 
 post_install do |installer|
@@ -99,7 +100,6 @@ post_install do |installer|
         end
     end
 end
-
 ```
 You can specify project name, platform and many other options in this file. Take a look at [cocoapods documentation](https://guides.cocoapods.org) for details.
 
