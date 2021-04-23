@@ -392,11 +392,11 @@ Save and close **GodotYodo1Mas-Info.plist** file.
 8. Set up build excluded architectures. For example, you can exclude armv7 if you did not compile for it. Also, set iOs deployement target to 10.0. 
 <img src="/images/xcode_architectures.png" width="500">
 
-7. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
+9. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
 In the popup 'Would you like to configure an Objective-C bridging header?' choose **Create Bridging Header**
 <img src="/images/create_bridging_header.png" width="500">
 
-8. You can compile a build :)
+10. You can compile a build :)
 
 
 #### !!IMPORTANT!!
@@ -432,13 +432,13 @@ This ```plugins``` folder contains two files ```GodotYodo1Mas.gdap``` and ```God
 </manifest>
 ```
 
-6. Use android label with attribute **tools:replace**. Example:
+6.In AndroidManifest.xml change app name in android:label tag. Example:
 
 ```
- <application tools:replace="android:label" android:label="GodotYodo1Mas"
+android:label="@string/GodotYodo1Mas"
 ```
 
-7. Check **build.gradle** file. You need to add repositories and activate multiDexEnabled.
+8. Check **build.gradle** file. You need to add repositories and activate multiDexEnabled.
 
 ```
 maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
