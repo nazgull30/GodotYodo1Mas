@@ -17,6 +17,10 @@ First of all, you need download this repository. It consists of 3 folders:
 
 
 ### iOS
+
+#### ios libraries compilation with mas sdk
+!!!IMPORTANT!!! YOU DO NOT NEED TO DO IT IF YOU ARE GOING TO USE ONLY MAS SDK AND NOT ANY OTHER PLUGINS!!!
+
 In order MAS SDK works on iOs properly you need to have godot native ios library with MAS module.
 We put a compiled library in the release 1.0.0 - file with name "fGodotYodo1Mas.a".
 If you want to use precompiled library then skip next stes 1-8.
