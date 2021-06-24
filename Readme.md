@@ -141,7 +141,7 @@ iOS 14 requires publishers to obtain permission to track user devices across app
 6. Add AdMob App ID
 
 ```
-<key>NSUserTrackingUsageDescription</key>
+<key>GADApplicationIdentifier</key>
 <string>!!!Your MAS AdMob App ID!!!</string>
 ```
 
