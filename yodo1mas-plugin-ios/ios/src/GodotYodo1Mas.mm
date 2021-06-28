@@ -140,7 +140,7 @@ void GodotYodo1Mas::init(const String &appId) {
 	
 	NSString *appIdPr = [NSString stringWithCString:appId.utf8().get_data() encoding: NSUTF8StringEncoding];
 	// [UnityAds initialize:appIdPr delegate:nil testMode:YES];
-    [[Yodo1Mas sharedInstance] initWithAppId:appIdPr successful:^{
+    [[Yodo1Mas sharedInstance] initWithAppKey:appIdPr successful:^{
 		initialized = true;
 		NSLog(@"GodotYodo1MasWrapper -> initialize successful");
     } fail:^(NSError * _Nonnull error) {
