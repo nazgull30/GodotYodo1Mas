@@ -679,6 +679,7 @@ __meta__ = {
 }
 app_id_ios = "BkFDs2l8K4k"
 app_id_android = "emXSs0Md7ZC"
+
 [connection signal="ended" from="PrivacyController" to="." method="_on_PrivacyController_ended"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnBannerAd" to="." method="_on_BtnBannerAd_pressed"]
 [connection signal="pressed" from="CanvasLayer/Orange/BtnInterstitialAd" to="." method="_on_BtnInterstitialAd_pressed"]

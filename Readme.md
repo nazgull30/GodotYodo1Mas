@@ -17,6 +17,15 @@ First of all, you need download this repository. It consists of 3 folders:
 
 
 ### iOS
+
+#### ios libraries compilation with mas sdk
+!!!IMPORTANT!!! YOU DO NOT NEED TO DO IT IF YOU ARE GOING TO USE ONLY MAS SDK AND NOT ANY OTHER PLUGINS!!!
+
+In order MAS SDK works on iOs properly you need to have godot native ios library with MAS module.
+We put a compiled library in the release 1.0.0 - file with name "fGodotYodo1Mas.a".
+If you want to use precompiled library then skip next stes 1-8.
+If you have other third party modules then you have to recompile an entire godot engine.
+
 1. Clone this repository.
 2. Clone godot repository.
 3. Go to godot repository folder then open _modules_ folder.
@@ -30,14 +39,15 @@ First of all, you need download this repository. It consists of 3 folders:
 
 Now we need to compile a library for our future Xcode project.
 [Here](https://docs.godotengine.org/en/stable/development/compiling/compiling_for_ios.html) is an official documentation about plugin compilation in godot.
-1. Open **Terminal** program on your Mac.
-2. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
+6. Open **Terminal** program on your Mac.
+
+7. Navigate to godot repository folder. For example, if you clone godot repository godot-3.2.3-stable in Downloads folder then use this commands:
   - **cd**. This command navigates you to your home folder.
   - **cd Downloads/godot-3.2.3-stable**. Navigates to godot folder.
   - **ls**. Display all files in godot folder.
 <img src="/images/terminal_navigates_to_godot.png" width="500">
 
-3. Compile the engine for iOs platform. 
+8. Compile the engine for iOs platform. 
 You need a program **scons** to be installed. The easiest way you do it through Homebrew. 
 Homebrew installation is [here](https://brew.sh).
 cscons installation via homebrew is [here](https://formulae.brew.sh/formula/scons). 
@@ -63,15 +73,17 @@ Below we provide an example how to compile demo project on iOs. You will be able
 
 2. Here is a directory with Xcode project. For now GodotYodo1Mas.a file is a library of godot engine but without Yodo1 MAS SDK. 
 You already compiled a required library before.
+Also,in the Yodo1Godot_release_files_1.*.* archive we provide GodotYodo1Mas.a for x86, armv7 ad x86+armv7.
 <img src="/images/godot_ios_libraries.png" width="500">
 
 Rename file _libgodot.iphone.opt.arm64.a_ to _GodotYodo1Mas.a_ and copy-paste it to Godot Xcode project.
 
-Now library  _GodotYodo1Mas.a_ in Xcode project contains MAS SDK wrapper.
+Now copy and past library  _GodotYodo1Mas.a_ in Xcode project contains MAS SDK wrapper.
+You can find thi slibrary in the release 1.0.0 archive. 
 
 3. Use cocoapods to add all MAS SDKs in your Xcode project. Create Podfile in Xcode project via terminal command **touch Podfile**. 
 Do not forget to navigate into Xcode folder with command _cd_ .
-4. Open the project's Podfile file and add the following code to the target of the application:
+4. Open the project's Podfile file and add the following code to the target of the application. Yodo1MasStandard shoould be
 ```
 source 'https://github.com/Yodo1Games/MAS-Spec.git'
 source 'https://github.com/Yodo1Games/Yodo1Spec.git'
@@ -82,7 +94,7 @@ project 'GodotYodo1Mas.xcodeproj'
 
 target 'GodotYodo1Mas' do
    pod 'FBSDKCoreKit'
-   pod 'Yodo1MasStandard', '~> 4.0.1.0'
+   pod 'Yodo1MasStandard', '~> 4.0.4' # <-- new version here
 end
 
 post_install do |installer|
@@ -92,7 +104,6 @@ post_install do |installer|
         end
     end
 end
-
 ```
 You can specify project name, platform and many other options in this file. Take a look at [cocoapods documentation](https://guides.cocoapods.org) for details.
 
@@ -134,12 +145,13 @@ iOS 14 requires publishers to obtain permission to track user devices across app
 6. Add AdMob App ID
 
 ```
-<key>NSUserTrackingUsageDescription</key>
+<key>GADApplicationIdentifier</key>
 <string>!!!Your MAS AdMob App ID!!!</string>
 ```
 
 7. Advertising Network ID
-Games for users running iOS 14 or later need to include the network ID of each advertising platform in the attribute list file
+Games for users running iOS 14 or later need to include the network ID of each advertising platform in the GodotYodo1Mas-Info.plist file.
+There is an example of this file in the Yodo1Godot_release_files_1.*.* archive.
 
 ```
     <key>SKAdNetworkItems</key>
@@ -384,11 +396,11 @@ Save and close **GodotYodo1Mas-Info.plist** file.
 8. Set up build excluded architectures. For example, you can exclude armv7 if you did not compile for it. Also, set iOs deployement target to 10.0. 
 <img src="/images/xcode_architectures.png" width="500">
 
-7. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
+9. Create empty swift file. In menu: File -> New -> File -> Choose Swift File -> Next -> Create.
 In the popup 'Would you like to configure an Objective-C bridging header?' choose **Create Bridging Header**
 <img src="/images/create_bridging_header.png" width="500">
 
-8. You can compile a build :)
+10. You can compile a build :)
 
 
 #### !!IMPORTANT!!
@@ -397,20 +409,21 @@ After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** an
 
 ### Android
 
-## Setup
+## Setup new project
 
 1. Configure, install  and enable the "Android Custom Template" for your project, just follow the [official documentation](https://docs.godotengine.org/en/stable/getting_started/workflow/export/android_custom_build.html);
-2. Go to the [release tab](https://https://github.com/nazgull30/GodotYodo1Mas/releases), choose a version and download the respective ```GodotYodo1Mas.x.x.x.zip``` package;
-3. Extract the content of the ```yodo1mas-plugin``` directory (```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar``` from the zip package) inside the ```res://android/plugins``` directory on your Godot project.
-4. Put fir ```yodo1mas.gd``` into Godot project.
-5. On the Project -> Export... -> Android -> Options -> 
-    - Permissions: check the permissions for _Access Network State_ and _Internet_
-    - Custom Template: check the _Use Custom Build_
-    - Plugins: check the _Godot Yodo1 Mas_ (this plugin)
+2. Copy folder ```plugins``` from Yodo1Godot_release_files_1.*.* archive  to your Godot project. You have to put them in the path ```res://android```.
+This ```plugins``` folder contains two files ```GodotYodo1Mas.gdap``` and ```GodotYodo1Mas.***.aar```.
+4. Put file ```yodo1mas.gd``` from release achive into your Godot project.
+5. Copy files ```AndroidManifest.xml```, ```config.gradle```, ```build.gradle``` and put them in the path ```res://android```.
 6. Add AdMob App ID
-    - Add your AdMob App ID to your app's ```res//android/build/AndroidManifest.xml``` file by adding the <meta-data> tag. 
+    - Add your AdMob App ID to your app's ```res//android/build/AndroidManifest.xml``` file by adding the <meta-data> tag. You can find an example of Admob
     - You can find your App ID in the MAS dashboard.
     - Please replace android:value with your own AdMob App ID
+7. On the Project -> Export... -> Android -> Options -> 
+    - Custom Template: check the _Use Custom Build_
+    - Plugins: check the _Godot Yodo1 Mas_ (this plugin)
+    - Permissions: check the permissions for _Access Network State_ and _Internet_
 
 ```
 <manifest>
@@ -423,13 +436,13 @@ After you prepare Xcode project in Godot editor use option **Export PCK/ZIP** an
 </manifest>
 ```
 
-7. Change android label with attribute **tools:replace**. Example:
+6.In AndroidManifest.xml change app name in android:label tag. Example:
 
 ```
- <application tools:replace="android:label" android:label="GodotYodo1Mas"
+android:label="@string/GodotYodo1Mas"
 ```
 
-9. Edit **build.gradle** file. You need to add repositories and activate multiDexEnabled.
+8. Check **build.gradle** file. You need to add repositories and activate multiDexEnabled.
 
 ```
 maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
@@ -442,9 +455,7 @@ maven { url "https://dl.bintray.com/yodo1/android-sdk" }
 	multiDexEnabled true
 ```
 
-Take a look at build.gradle file in the demo project.
-
-10. You can export Android project. Apk will be created.
+8. You can export Android project. Apk will be created.
 
 
 **NOTE**: everytime you install a new version of the Android Build Template this step must be done again, as the ```AndroidManifest.xml``` file will be overriden.
@@ -466,6 +477,11 @@ If everything goes fine, you'll find the `.aar` files at `yodo1mas-plugin-androi
 
 Godot manual
 ----------
+### Set App Ids.
+Create Yodo1Mas node and type app ids in the yodo1mas script. 
+You can find your App IDs in the MAS dashboard.
+<img src="/images/set_app_ids.png" width="500">
+
 
 ### Banner integration
 1. Set up the banner signals
@@ -504,6 +520,7 @@ yodo1mas.dismiss_banner_ad()
 ### Interstitial integration
 1. Set up the interstitial signals
 <img src="/images/interstitial_signals.png" width="500">
+
 
 2. Check the loading status of interstitials
 
