@@ -122,21 +122,34 @@ bool GodotYodo1Mas::isInitialized() {
 }
 
 void GodotYodo1Mas::setGDPR(bool gdpr) {
+	NSLog(@"GodotYodo1MasWrapper -> setGDPR, %d", gdpr);
 	[Yodo1Mas sharedInstance].isGDPRUserConsent = gdpr;
 }
 void GodotYodo1Mas::setCCPA(bool ccpa) {
+	NSLog(@"GodotYodo1MasWrapper -> setCCPA, %d", ccpa);
 	[Yodo1Mas sharedInstance].isCCPADoNotSell = ccpa;
 }	
 void GodotYodo1Mas::setCOPPA(bool coppa) {
+	NSLog(@"GodotYodo1MasWrapper -> setCOPPA, %d", coppa);
 	[Yodo1Mas sharedInstance].isCOPPAAgeRestricted = coppa;
 }
 
 void GodotYodo1Mas::init(const String &appId) {
     NSLog(@"GodotYodo1MasWrapper init");
 
-	[Yodo1Mas sharedInstance].bannerAdDelegate = [[GodotYodo1MasBannerAd alloc] init];	
-	[Yodo1Mas sharedInstance].interstitialAdDelegate = [[GodotYodo1MasInterstitialAd alloc] init];
-	[Yodo1Mas sharedInstance].rewardAdDelegate = [[GodotYodo1MasRewardedAd alloc] init];
+	GodotYodo1MasBannerAd *bannerAdDelegate = [[GodotYodo1MasBannerAd alloc] init];
+	GodotYodo1MasInterstitialAd *interstitialAdDelegate = [[GodotYodo1MasInterstitialAd alloc] init];
+	GodotYodo1MasRewardedAd *rewardAdDelegate = [[GodotYodo1MasRewardedAd alloc] init];
+
+	[Yodo1Mas sharedInstance].bannerAdDelegate = bannerAdDelegate;
+	[Yodo1Mas sharedInstance].interstitialAdDelegate = interstitialAdDelegate;
+	[Yodo1Mas sharedInstance].rewardAdDelegate = rewardAdDelegate;
+	
+	if (interstitialAdDelegate == nil) {
+		NSLog(@"GodotYodo1MasWrapper -> interstitialAdDelegate is nil");
+	} else {
+		NSLog(@"GodotYodo1MasWrapper -> interstitialAdDelegate is not nil");		
+	}
 	
 	NSString *appIdPr = [NSString stringWithCString:appId.utf8().get_data() encoding: NSUTF8StringEncoding];
 	// [UnityAds initialize:appIdPr delegate:nil testMode:YES];
