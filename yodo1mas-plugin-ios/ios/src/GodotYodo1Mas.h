@@ -15,6 +15,10 @@ public:
 	bool isInitialized();
     void init(const String &appId);
 
+    void setBannerCallback();
+    void setInterstitialAdCallback();	
+    void setRewardedAdCallback();
+	
 	void setGDPR(bool gdpr);
 	void setCCPA(bool ccpa);	
 	void setCOPPA(bool coppa);

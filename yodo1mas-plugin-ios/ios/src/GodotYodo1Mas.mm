@@ -8,13 +8,13 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 // BEGIN CALLBALS
 @interface GodotYodo1MasBannerAd: NSObject<Yodo1MasBannerAdDelegate>
 
-- (void)onAdOpened:(Yodo1MasAdEvent *)event;
-- (void)onAdClosed:(Yodo1MasAdEvent *)event;
-- (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error;
-
 @end
 
 @implementation GodotYodo1MasBannerAd
+
+- (void)setBannerAdDelegate {
+    [Yodo1Mas sharedInstance].bannerAdDelegate = self;
+}
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1MasWrapper -> GodotYodo1MasBannerAd onAdOpened");
@@ -38,14 +38,15 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 @interface GodotYodo1MasInterstitialAd: NSObject<Yodo1MasInterstitialAdDelegate>
 
-- (void)onAdOpened:(Yodo1MasAdEvent *)event;
-- (void)onAdClosed:(Yodo1MasAdEvent *)event;
-- (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error;
 
 @end
 
 
 @implementation GodotYodo1MasInterstitialAd
+
+- (void)setInterstitialAdDelegate {
+    [Yodo1Mas sharedInstance].interstitialAdDelegate = self;
+}
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1MasWrapper -> GodotYodo1MasInterstitial onAdOpened");
@@ -69,14 +70,14 @@ static GodotYodo1Mas *godotYodo1MasInstance = NULL;
 
 @interface GodotYodo1MasRewardedAd: NSObject<Yodo1MasRewardAdDelegate>
 
-- (void)onAdOpened:(Yodo1MasAdEvent *)event;
-- (void)onAdClosed:(Yodo1MasAdEvent *)event;
-- (void)onAdRewardEarned:(Yodo1MasAdEvent *)event;
-- (void)onAdError:(Yodo1MasAdEvent *)event error:(Yodo1MasError *)error;
 @end
 
 
 @implementation GodotYodo1MasRewardedAd
+
+- (void)setRewardAdDelegate {
+    [Yodo1Mas sharedInstance].rewardAdDelegate = self;
+}
 
 - (void)onAdOpened:(Yodo1MasAdEvent *)event {
 	NSLog(@"GodotYodo1MasWrapper -> GodotYodo1MasRewardAd onAdOpened");
@@ -137,20 +138,10 @@ void GodotYodo1Mas::setCOPPA(bool coppa) {
 void GodotYodo1Mas::init(const String &appId) {
     NSLog(@"GodotYodo1MasWrapper init");
 
-	GodotYodo1MasBannerAd *bannerAdDelegate = [[GodotYodo1MasBannerAd alloc] init];
-	GodotYodo1MasInterstitialAd *interstitialAdDelegate = [[GodotYodo1MasInterstitialAd alloc] init];
-	GodotYodo1MasRewardedAd *rewardAdDelegate = [[GodotYodo1MasRewardedAd alloc] init];
-
-	[Yodo1Mas sharedInstance].bannerAdDelegate = bannerAdDelegate;
-	[Yodo1Mas sharedInstance].interstitialAdDelegate = interstitialAdDelegate;
-	[Yodo1Mas sharedInstance].rewardAdDelegate = rewardAdDelegate;
-	
-	if (interstitialAdDelegate == nil) {
-		NSLog(@"GodotYodo1MasWrapper -> interstitialAdDelegate is nil");
-	} else {
-		NSLog(@"GodotYodo1MasWrapper -> interstitialAdDelegate is not nil");		
-	}
-	
+	setBannerCallback();
+	setInterstitialAdCallback();	
+	setRewardedAdCallback();
+		
 	NSString *appIdPr = [NSString stringWithCString:appId.utf8().get_data() encoding: NSUTF8StringEncoding];
 	// [UnityAds initialize:appIdPr delegate:nil testMode:YES];
     [[Yodo1Mas sharedInstance] initWithAppKey:appIdPr successful:^{
@@ -159,6 +150,33 @@ void GodotYodo1Mas::init(const String &appId) {
     } fail:^(NSError * _Nonnull error) {
 		NSLog(@"GodotYodo1MasWrapper -> initialize error: %@", error);
     }];
+}
+
+void GodotYodo1Mas::setBannerCallback() {
+    static GodotYodo1MasBannerAd *bannerAd;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        bannerAd = [[GodotYodo1MasBannerAd alloc] init];
+    });
+    [bannerAd setBannerAdDelegate];
+}
+
+void GodotYodo1Mas::setInterstitialAdCallback() {
+    static GodotYodo1MasInterstitialAd *interstitialAd;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        interstitialAd = [[GodotYodo1MasInterstitialAd alloc] init];
+    });
+    [interstitialAd setInterstitialAdDelegate];
+}
+
+void GodotYodo1Mas::setRewardedAdCallback() {
+    static GodotYodo1MasRewardedAd *rewardedAd;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        rewardedAd = [[GodotYodo1MasRewardedAd alloc] init];
+    });
+    [rewardedAd setRewardAdDelegate];
 }
 
 
