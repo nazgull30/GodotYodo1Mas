@@ -21,11 +21,15 @@ allprojects {
         google()
         jcenter()
 
-        maven { url "https://dl.bintray.com/ironsource-mobile/android-sdk" }
-        maven { url "https://dl.bintray.com/ironsource-mobile/android-adapters" }
-        maven { url "https://dl.bintray.com/yodo1/MAS-Android" }
-        maven { url "https://dl.bintray.com/yodo1/android-sdk" }
-        
+        mavenCentral()
+        maven { url "https://artifact.bytedance.com/repository/pangle" }
+        maven { url "https://android-sdk.is.com" }
+        maven { url "https://sdk.tapjoy.com/" }
+
+//        Use the code bellow if you need to comply with the Google Family Policy.
+//        mavenCentral()
+//        maven { url "https://android-sdk.is.com" }
+//        maven { url "https://sdk.tapjoy.com/" }
     }
 }
 
