@@ -6,4 +6,4 @@ binary="GodotYodo1Mas.1.0.1.release.aar"
 
 [dependencies]
 
-remote=["com.yodo1.mas:standard:4.1.1"]
+remote=["com.yodo1.mas:standard:4.2.1"]
